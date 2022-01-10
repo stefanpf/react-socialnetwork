@@ -19,7 +19,7 @@ app.use(
     cookieSession({
         secret:
             process.env.SESSION_SECRET ||
-            require("./secrets").COOKIE_SESSION_SECRET,
+            require("../secrets").COOKIE_SESSION_SECRET,
         maxAge: 1000 * 60 * 60 * 24 * 14,
         sameSite: true,
     })
