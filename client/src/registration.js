@@ -1,4 +1,5 @@
 import { Component } from "react";
+import Logo from "./logo";
 
 export default class Registration extends Component {
     constructor() {
@@ -51,6 +52,7 @@ export default class Registration extends Component {
             <>
                 <h1>Registration</h1>
                 {this.state.error && <h2>Oops, something went wrong...</h2>}
+                <Logo />
                 <form>
                     <input
                         type="text"
