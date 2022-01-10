@@ -11,7 +11,6 @@ authRouter.get("/user/id.json", function (req, res) {
 });
 
 authRouter.post("/register.json", (req, res) => {
-    console.log(req.body);
     const { first, last, email, password } = req.body;
     if (checkValidEmail(email)) {
         hash(password)
@@ -26,10 +25,19 @@ authRouter.post("/register.json", (req, res) => {
             .then(({ rows }) => {
                 req.session = { userId: rows[0].id };
                 res.json({ success: true });
+            })
+            .catch((err) => {
+                console.log("Err in registration process:", err);
+                res.json({ success: false });
             });
     } else {
         res.json({ success: false });
     }
+});
+
+authRouter.get("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/");
 });
 
 module.exports = authRouter;
