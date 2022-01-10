@@ -31,13 +31,10 @@ export default class Registration extends Component {
         })
             .then((resp) => resp.json())
             .then((data) => {
-                console.log("data from /register.json", data);
                 if (data.success) {
-                    console.log("yay, this worked");
                     location.reload();
                 } else {
                     this.setState({ error: true });
-                    console.log("uh oh, there was an error");
                 }
             })
             .catch((err) => {
