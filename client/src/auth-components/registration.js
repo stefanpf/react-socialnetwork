@@ -1,5 +1,5 @@
 import { Component } from "react";
-import Logo from "./logo";
+import Logo from "../logo";
 
 export default class Registration extends Component {
     constructor() {

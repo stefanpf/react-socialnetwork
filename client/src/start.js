@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import Welcome from "./welcome";
+import Welcome from "./auth-components/welcome";
 import Logo from "./logo";
 
 fetch("/user/id.json")
