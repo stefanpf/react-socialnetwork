@@ -31,7 +31,5 @@ module.exports.sendEmail = function (recipient, subject, body) {
                 },
             },
         })
-        .promise()
-        .then(() => console.log("it worked!"))
-        .catch((err) => console.log(err));
+        .promise();
 };
