@@ -21,6 +21,13 @@ function addUser(firstName, lastName, email, hashedPw) {
     return db.query(q, params);
 }
 
+function getUserByEmail(email) {
+    const q = `SELECT id, password FROM users WHERE email = $1;`;
+    const params = [email];
+    return db.query(q, params);
+}
+
 module.exports = {
     addUser,
+    getUserByEmail,
 };

@@ -35,6 +35,28 @@ authRouter.post("/register.json", (req, res) => {
     }
 });
 
+authRouter.post("/login.json", (req, res) => {
+    const { email, password: typedPassword } = req.body;
+    let userId;
+    db.getUserByEmail(email.toLowerCase())
+        .then(({ rows }) => {
+            userId = rows[0].id;
+            return compare(typedPassword, rows[0].password);
+        })
+        .then((passwordCorrect) => {
+            if (passwordCorrect) {
+                req.session.userId = userId;
+                res.json({ success: true });
+            } else {
+                res.json({ success: false });
+            }
+        })
+        .catch((err) => {
+            console.log("Error in getUserByEmail:", err);
+            res.json({ success: false });
+        });
+});
+
 authRouter.get("/logout", (req, res) => {
     req.session = null;
     res.redirect("/");

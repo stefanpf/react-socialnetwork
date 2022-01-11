@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Link } from "react-router-dom";
 import Logo from "../logo";
 
 export default class Registration extends Component {
@@ -90,6 +91,8 @@ export default class Registration extends Component {
                         >
                             Register
                         </button>
+                        Already registered?
+                        <Link to="/login">Click here to log in!</Link>
                     </form>
                 </div>
             </>
