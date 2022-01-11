@@ -77,6 +77,7 @@ export default class Login extends Component {
                     </form>
                     Don&apos;t have an account yet?
                     <Link to="/">Click here to register!</Link>
+                    <Link to="/password/reset">Forgot your password?</Link>
                 </div>
             </>
         );

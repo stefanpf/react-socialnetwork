@@ -3,6 +3,7 @@ const compression = require("compression");
 const cookieSession = require("cookie-session");
 const path = require("path");
 const authRouter = require("./routers/auth-router");
+const resetPasswordRouter = require("./routers/reset-password-router");
 const app = express();
 const PORT = 3001;
 
@@ -30,6 +31,7 @@ app.use(express.json());
 
 // ROUTES
 app.use(authRouter);
+app.use(resetPasswordRouter);
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
