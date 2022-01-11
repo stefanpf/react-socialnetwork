@@ -12,7 +12,7 @@ authRouter.get("/user/id.json", function (req, res) {
 
 authRouter.post("/register.json", (req, res) => {
     const { first, last, email, password } = req.body;
-    if (checkValidEmail(email)) {
+    if (checkValidEmail(email) && first != "" && last != "" && password != "") {
         hash(password)
             .then((hashedPassword) => {
                 return db.addUser(
