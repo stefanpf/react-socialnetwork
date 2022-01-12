@@ -12,8 +12,7 @@ export default class App extends Component {
             uploaderIsVisible: false,
         };
         this.toggleUploader = this.toggleUploader.bind(this);
-        this.logNamePlusSomeOtherStuffAsWell =
-            this.logNamePlusSomeOtherStuffAsWell.bind(this);
+        this.addNewImageUrlToState = this.addNewImageUrlToState.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
     }
 
@@ -33,8 +32,10 @@ export default class App extends Component {
         this.setState({ uploaderIsVisible: !this.state.uploaderIsVisible });
     }
 
-    logNamePlusSomeOtherStuffAsWell(val) {
-        console.log(this.state.first + val);
+    addNewImageUrlToState(url) {
+        this.setState({ imageUrl: url }, () =>
+            console.log("added new image url to state:", this.state.imageUrl)
+        );
     }
 
     render() {
@@ -46,13 +47,14 @@ export default class App extends Component {
                     <ProfilePic
                         first={this.state.first}
                         last={this.state.last}
-                        imageUrl=""
+                        imageUrl={this.state.imageUrl}
                         toggleUploaderFunc={this.toggleUploader}
-                        loggerFunc={this.logNamePlusSomeOtherStuffAsWell}
                     />
                 </section>
                 {this.state.error && <h2>Uh oh, something went wrong...</h2>}
-                {this.state.uploaderIsVisible && <Uploader />}
+                {this.state.uploaderIsVisible && (
+                    <Uploader addImageUrlFunc={this.addNewImageUrlToState} />
+                )}
                 {/* <button onClick={this.toggleUploader} className="button-cta">
                     Toggle Uploader
                 </button> */}
