@@ -31,7 +31,11 @@ export default class ResetPassword extends Component {
             })
                 .then((data) => data.json())
                 .then((data) => {
-                    this.setState({ stage: 2 });
+                    if (data.success) {
+                        this.setState({ stage: 2 });
+                    } else {
+                        this.setState({ error: true });
+                    }
                 });
         } else if (this.state.stage === 2) {
             fetch("/password/reset/confirm", {
@@ -43,7 +47,11 @@ export default class ResetPassword extends Component {
             })
                 .then((data) => data.json())
                 .then((data) => {
-                    this.setState({ stage: 3 });
+                    if (data.success) {
+                        this.setState({ stage: 3 });
+                    } else {
+                        this.setState({ error: true });
+                    }
                 });
         }
     }
@@ -52,6 +60,7 @@ export default class ResetPassword extends Component {
         if (this.state.stage === 1) {
             return (
                 <>
+                    {this.state.error && <h2>Oops, something went wrong...</h2>}
                     <div className="form-container">
                         <form>
                             <input
@@ -75,6 +84,7 @@ export default class ResetPassword extends Component {
         } else if (this.state.stage === 2) {
             return (
                 <>
+                    {this.state.error && <h2>Oops, something went wrong...</h2>}
                     <div className="form-container">
                         <form>
                             <input
