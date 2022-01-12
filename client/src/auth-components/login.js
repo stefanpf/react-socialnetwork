@@ -9,17 +9,10 @@ export default class Login extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    componentDidMount() {
-        console.log("Login just mounted");
-    }
-
     handleChange({ target }) {
-        this.setState(
-            {
-                [target.name]: target.value,
-            },
-            () => console.log(this.state)
-        );
+        this.setState({
+            [target.name]: target.value,
+        });
     }
 
     handleSubmit(e) {

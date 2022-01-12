@@ -9,17 +9,10 @@ export default class Registration extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    componentDidMount() {
-        console.log("Registration just mounted");
-    }
-
     handleChange({ target }) {
-        this.setState(
-            {
-                [target.name]: target.value,
-            },
-            () => console.log(this.state)
-        );
+        this.setState({
+            [target.name]: target.value,
+        });
     }
 
     handleSubmit(e) {
