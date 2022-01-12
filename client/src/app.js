@@ -10,7 +10,6 @@ export default class App extends Component {
         this.state = {
             userId,
             uploaderIsVisible: true,
-            name: "Name",
         };
         this.toggleUploader = this.toggleUploader.bind(this);
         this.logNamePlusSomeOtherStuffAsWell =
@@ -21,7 +20,13 @@ export default class App extends Component {
     componentDidMount() {
         fetch(`/user/${this.state.userId}`)
             .then((data) => data.json())
-            .then(console.log);
+            .then((data) => {
+                if (data.success) {
+                    this.setState(data);
+                } else {
+                    this.setState({ error: true });
+                }
+            });
     }
 
     toggleUploader() {
@@ -45,6 +50,7 @@ export default class App extends Component {
                         loggerFunc={this.logNamePlusSomeOtherStuffAsWell}
                     />
                 </section>
+                {this.state.error && <h2>Uh oh, something went wrong...</h2>}
                 {this.state.uploaderIsVisible && <Uploader />}
                 <button onClick={this.toggleUploader} className="button-cta">
                     Toggle Uploader
