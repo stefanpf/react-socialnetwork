@@ -33,9 +33,7 @@ export default class App extends Component {
     }
 
     addNewImageUrlToState(url) {
-        this.setState({ imageUrl: url }, () =>
-            console.log("added new image url to state:", this.state.imageUrl)
-        );
+        this.setState({ imageUrl: url });
     }
 
     render() {
@@ -53,7 +51,10 @@ export default class App extends Component {
                 </section>
                 {this.state.error && <h2>Uh oh, something went wrong...</h2>}
                 {this.state.uploaderIsVisible && (
-                    <Uploader addImageUrlFunc={this.addNewImageUrlToState} />
+                    <Uploader
+                        addImageUrlFunc={this.addNewImageUrlToState}
+                        toggleUploaderFunc={this.toggleUploader}
+                    />
                 )}
                 {/* <button onClick={this.toggleUploader} className="button-cta">
                     Toggle Uploader
