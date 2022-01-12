@@ -56,9 +56,6 @@ export default class App extends Component {
                         toggleUploaderFunc={this.toggleUploader}
                     />
                 )}
-                {/* <button onClick={this.toggleUploader} className="button-cta">
-                    Toggle Uploader
-                </button> */}
             </>
         );
     }
