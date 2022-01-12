@@ -38,7 +38,7 @@ function setResetCode(email, code) {
 }
 
 function getResetCode(email) {
-    const q = `SELECT * FROM password_reset_codes 
+    const q = `SELECT code FROM password_reset_codes 
             WHERE email = $1
             AND CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes';`;
     const params = [email];
