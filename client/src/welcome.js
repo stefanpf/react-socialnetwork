@@ -1,7 +1,7 @@
 import { BrowserRouter, Route } from "react-router-dom";
-import Registration from "./registration";
-import Login from "./login";
-import ResetPassword from "./resetPassword";
+import Registration from "./auth-components/registration";
+import Login from "./auth-components/login";
+import ResetPassword from "./auth-components/resetPassword";
 
 export default function Welcome() {
     return (

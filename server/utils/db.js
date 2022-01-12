@@ -27,6 +27,12 @@ function getUserByEmail(email) {
     return db.query(q, params);
 }
 
+function getUserById(id) {
+    const q = `SELECT first, last, email FROM users WHERE id = $1;`;
+    const params = [id];
+    return db.query(q, params);
+}
+
 function setResetCode(email, code) {
     const q = `INSERT INTO password_reset_codes (email, code)
             VALUES ($1, $2)
@@ -56,6 +62,7 @@ function updatePassword(email, password) {
 module.exports = {
     addUser,
     getUserByEmail,
+    getUserById,
     setResetCode,
     getResetCode,
     updatePassword,

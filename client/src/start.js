@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
-import Welcome from "./auth-components/welcome";
-import Logo from "./logo";
+import Welcome from "./welcome";
+import App from "./app";
 
 fetch("/user/id.json")
     .then((response) => response.json())
@@ -8,6 +8,9 @@ fetch("/user/id.json")
         if (!data.userId) {
             ReactDOM.render(<Welcome />, document.querySelector("main"));
         } else {
-            ReactDOM.render(<Logo />, document.querySelector("main"));
+            ReactDOM.render(
+                <App userId={data.userId} />,
+                document.querySelector("main")
+            );
         }
     });
