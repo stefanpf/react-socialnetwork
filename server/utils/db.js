@@ -31,7 +31,7 @@ function setResetCode(email, code) {
     const q = `INSERT INTO password_reset_codes (email, code)
             VALUES ($1, $2)
             ON CONFLICT (email)
-            DO UPDATE SET (code = $2, created_at = CURRENT_TIMESTAMP)
+            DO UPDATE SET code = $2, created_at = CURRENT_TIMESTAMP
             RETURNING code;`;
     const params = [email, code];
     return db.query(q, params);
