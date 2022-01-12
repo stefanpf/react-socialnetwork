@@ -9,7 +9,7 @@ export default class App extends Component {
         super();
         this.state = {
             userId,
-            uploaderIsVisible: true,
+            uploaderIsVisible: false,
         };
         this.toggleUploader = this.toggleUploader.bind(this);
         this.logNamePlusSomeOtherStuffAsWell =
@@ -34,7 +34,7 @@ export default class App extends Component {
     }
 
     logNamePlusSomeOtherStuffAsWell(val) {
-        console.log(this.state.name + val);
+        console.log(this.state.first + val);
     }
 
     render() {
@@ -44,17 +44,18 @@ export default class App extends Component {
                     <a href="/logout">Logout</a>
                     <Logo />
                     <ProfilePic
-                        first="Alistair"
-                        last="Quinn"
+                        first={this.state.first}
+                        last={this.state.last}
                         imageUrl=""
+                        toggleUploaderFunc={this.toggleUploader}
                         loggerFunc={this.logNamePlusSomeOtherStuffAsWell}
                     />
                 </section>
                 {this.state.error && <h2>Uh oh, something went wrong...</h2>}
                 {this.state.uploaderIsVisible && <Uploader />}
-                <button onClick={this.toggleUploader} className="button-cta">
+                {/* <button onClick={this.toggleUploader} className="button-cta">
                     Toggle Uploader
-                </button>
+                </button> */}
             </>
         );
     }
