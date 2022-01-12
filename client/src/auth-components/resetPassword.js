@@ -69,6 +69,7 @@ export default class ResetPassword extends Component {
                                 placeholder="your@email.com"
                                 required
                                 onChange={this.handleChange}
+                                key="1"
                             ></input>
                             <button
                                 type="submit"
@@ -93,6 +94,7 @@ export default class ResetPassword extends Component {
                                 placeholder="your reset code"
                                 required
                                 onChange={this.handleChange}
+                                key="2"
                             ></input>
                             <input
                                 type="password"
@@ -100,6 +102,7 @@ export default class ResetPassword extends Component {
                                 placeholder="your new password"
                                 required
                                 onChange={this.handleChange}
+                                key="3"
                             ></input>
                             <button
                                 type="submit"
