@@ -31,14 +31,16 @@ function setResetCode(email, code) {
     const q = `INSERT INTO password_reset_codes (email, code)
             VALUES ($1, $2)
             ON CONFLICT (email)
-            DO UPDATE SET code = $2
+            DO UPDATE SET (code = $2, created_at = CURRENT_TIMESTAMP)
             RETURNING code;`;
     const params = [email, code];
     return db.query(q, params);
 }
 
 function getResetCode(email) {
-    const q = `SELECT code FROM password_reset_codes WHERE email = $1;`;
+    const q = `SELECT * FROM password_reset_codes 
+            WHERE email = $1
+            AND CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes';`;
     const params = [email];
     return db.query(q, params);
 }
