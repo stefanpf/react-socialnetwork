@@ -35,7 +35,8 @@ export default class BioEditor extends Component {
                 .then(() => {
                     this.props.updateBioFunc(this.state.bioDraft);
                     this.toggleEditMode();
-                });
+                })
+                .catch(() => this.setState({ error: true }));
         } else {
             this.toggleEditMode();
         }
