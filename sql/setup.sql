@@ -7,6 +7,8 @@ CREATE TABLE users (
         last VARCHAR NOT NULL,
         email VARCHAR NOT NULL UNIQUE,
         password VARCHAR NOT NULL,
+        image_url TEXT,
+        bio TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
