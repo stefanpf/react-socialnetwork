@@ -28,8 +28,24 @@ function getUserByEmail(email) {
 }
 
 function getUserById(id) {
-    const q = `SELECT first, last, email FROM users WHERE id = $1;`;
+    const q = `SELECT first, last, email, image_url, bio FROM users WHERE id = $1;`;
     const params = [id];
+    return db.query(q, params);
+}
+
+function addImageUrl(id, url) {
+    const q = `UPDATE users
+            SET image_url = $2
+            WHERE id = $1;`;
+    const params = [id, url];
+    return db.query(q, params);
+}
+
+function addUserBio(id, bio) {
+    const q = `UPDATE users
+            SET bio = $2
+            WHERE id = $1;`;
+    const params = [id, bio];
     return db.query(q, params);
 }
 
@@ -63,6 +79,8 @@ module.exports = {
     addUser,
     getUserByEmail,
     getUserById,
+    addImageUrl,
+    addUserBio,
     setResetCode,
     getResetCode,
     updatePassword,

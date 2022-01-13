@@ -52,6 +52,7 @@ export default class App extends Component {
                 {this.state.error && <h2>Uh oh, something went wrong...</h2>}
                 {this.state.uploaderIsVisible && (
                     <Uploader
+                        userId={this.state.userId}
                         addImageUrlFunc={this.addNewImageUrlToState}
                         toggleUploaderFunc={this.toggleUploader}
                     />

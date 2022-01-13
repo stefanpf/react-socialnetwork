@@ -4,7 +4,7 @@ export default function profilePic({
     imageUrl,
     toggleUploaderFunc,
 }) {
-    imageUrl = imageUrl || "img/default-profile.jpg";
+    imageUrl = imageUrl || "/img/default-profile.jpg";
 
     return (
         <img
