@@ -59,13 +59,6 @@ export default class Uploader extends Component {
                         >
                             X
                         </button>
-                        {/* <h1
-                            onClick={() =>
-                                this.addImageUrlFunc("/img/logo.png")
-                            }
-                        >
-                            UPLOADER
-                        </h1> */}
                     </div>
                 </div>
             </>

@@ -14,6 +14,7 @@ userRouter.get("/user/:id", (req, res) => {
                     last: rows[0].last,
                     imageUrl: rows[0].image_url,
                     email: rows[0].email,
+                    bio: rows[0].bio,
                 });
             } else {
                 res.json({ success: false });
@@ -50,24 +51,20 @@ userRouter.post(
 userRouter
     .route("/user/profile/:id")
     .get((req, res) => {
-        db.getUserById(req.params.id)
+        db.getUserBio(req.params.id)
             .then(({ rows }) => {
                 res.json({
-                    first: rows[0].first,
-                    last: rows[0].last,
-                    email: rows[0].email,
-                    imageUrl: rows[0].image_url,
-                    bio: rows[0].bio,
+                    ...rows[0],
                     success: true,
                 });
             })
             .catch((err) => {
-                console.log("Error in getUserById:", err);
+                console.log("Error in getUserBio:", err);
                 res.json({ success: false });
             });
     })
     .post((req, res) => {
-        const { userBio } = req.body;
+        const { bioDraft: userBio } = req.body;
         if (userBio != "") {
             db.addUserBio(req.params.id, userBio)
                 .then(res.json({ success: true }))

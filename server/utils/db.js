@@ -41,6 +41,13 @@ function addImageUrl(id, url) {
     return db.query(q, params);
 }
 
+function getUserBio(id) {
+    const q = `SELECT bio FROM users
+            WHERE id = $1;`;
+    const params = [id];
+    return db.query(q, params);
+}
+
 function addUserBio(id, bio) {
     const q = `UPDATE users
             SET bio = $2
@@ -80,6 +87,7 @@ module.exports = {
     getUserByEmail,
     getUserById,
     addImageUrl,
+    getUserBio,
     addUserBio,
     setResetCode,
     getResetCode,

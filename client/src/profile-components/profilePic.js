@@ -3,6 +3,7 @@ export default function profilePic({
     last,
     imageUrl,
     toggleUploaderFunc,
+    className,
 }) {
     imageUrl = imageUrl || "/img/default-profile.jpg";
 
@@ -13,7 +14,7 @@ export default function profilePic({
             }}
             src={imageUrl}
             alt={`${first} ${last}`}
-            id="navbar-avatar"
+            className={className}
         />
     );
 }
