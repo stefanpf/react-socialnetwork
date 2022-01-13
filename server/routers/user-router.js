@@ -47,4 +47,37 @@ userRouter.post(
     }
 );
 
+userRouter
+    .route("/user/profile/:id")
+    .get((req, res) => {
+        db.getUserById(req.params.id)
+            .then(({ rows }) => {
+                res.json({
+                    first: rows[0].first,
+                    last: rows[0].last,
+                    email: rows[0].email,
+                    imageUrl: rows[0].image_url,
+                    bio: rows[0].bio,
+                    success: true,
+                });
+            })
+            .catch((err) => {
+                console.log("Error in getUserById:", err);
+                res.json({ success: false });
+            });
+    })
+    .post((req, res) => {
+        const { userBio } = req.body;
+        if (userBio != "") {
+            db.addUserBio(req.params.id, userBio)
+                .then(res.json({ success: true }))
+                .catch((err) => {
+                    console.log("Error in addUserBio:", err);
+                    res.json({ success: false });
+                });
+        } else {
+            res.json({ success: false });
+        }
+    });
+
 module.exports = userRouter;
