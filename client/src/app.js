@@ -1,5 +1,5 @@
 import { Component } from "react";
-import Logo from "./logo";
+import Logo from "./global-components/logo";
 import ProfilePic from "./profile-components/profilePic";
 import Uploader from "./profile-components/profilePicUploader";
 import Profile from "./profile-components/profile";

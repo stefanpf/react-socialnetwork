@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
-import Logo from "../logo";
+import Logo from "../global-components/logo";
 
 export default class Login extends Component {
     constructor() {
