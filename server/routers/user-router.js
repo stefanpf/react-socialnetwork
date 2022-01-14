@@ -87,7 +87,7 @@ userRouter.get("/find", async (req, res) => {
                 user === "newest"
                     ? await db.getNewestUsers()
                     : await db.getUsersByName(user);
-            res.json(users);
+            res.json({ success: true, users });
         } catch (err) {
             console.log("Error in getUsersByName:", err);
             res.json({ success: false });

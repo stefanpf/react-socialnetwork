@@ -8,7 +8,13 @@ export default function FindPeople() {
     useEffect(() => {
         fetch(`find?user=newest`)
             .then((res) => res.json())
-            .then((data) => setPeople(data))
+            .then((data) => {
+                if (data.success) {
+                    setPeople(data.users);
+                } else {
+                    setError(true);
+                }
+            })
             .catch(() => setError(true));
     }, []);
 
@@ -19,7 +25,11 @@ export default function FindPeople() {
                 .then((res) => res.json())
                 .then((data) => {
                     if (!abort) {
-                        setPeople(data);
+                        if (data.success) {
+                            setPeople(data.users);
+                        } else {
+                            setError(true);
+                        }
                     }
                 })
                 .catch(() => {
