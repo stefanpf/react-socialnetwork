@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import Logo from "./global-components/logo";
 import ProfilePic from "./profile-components/profilePic";
 import Uploader from "./profile-components/profilePicUploader";
@@ -47,7 +47,6 @@ export default class App extends Component {
         return (
             <>
                 <section>
-                    <a href="/logout">Logout</a>
                     <Logo />
                     <ProfilePic
                         first={this.state.first}
@@ -56,6 +55,7 @@ export default class App extends Component {
                         toggleUploaderFunc={this.toggleUploader}
                         className="navbar-avatar"
                     />
+                    <a href="/logout">Logout</a>
                 </section>
                 {this.state.error && <h2>Uh oh, something went wrong...</h2>}
                 {this.state.uploaderIsVisible && (
@@ -67,10 +67,10 @@ export default class App extends Component {
                 )}
                 <section>
                     <BrowserRouter>
-                        <Route path="/findPeople">
+                        <Route path="/findpeople">
                             <FindPeople />
                         </Route>
-                        <Route path="/">
+                        <Route exact path="/">
                             <Profile
                                 userId={this.state.userId}
                                 first={this.state.first}

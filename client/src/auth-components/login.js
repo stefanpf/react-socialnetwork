@@ -27,7 +27,7 @@ export default class Login extends Component {
             .then((resp) => resp.json())
             .then((data) => {
                 if (data.success) {
-                    location.reload();
+                    location.replace("/");
                 } else {
                     this.setState({ error: true });
                 }
