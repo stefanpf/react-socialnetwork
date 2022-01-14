@@ -33,6 +33,21 @@ function getUserById(id) {
     return db.query(q, params);
 }
 
+function getUsersByName(name) {
+    const q = `SELECT id, first, last, image_url 
+            FROM users 
+            WHERE first ILIKE $1 OR last ILIKE $1;`;
+    const params = [`${name}%`];
+    return db.query(q, params);
+}
+
+function getNewestUsers() {
+    return db.query(`SELECT id, first, last, image_url
+            FROM users
+            ORDER BY id DESC
+            LIMIT 3;`);
+}
+
 function addImageUrl(id, url) {
     const q = `UPDATE users
             SET image_url = $2
@@ -86,6 +101,8 @@ module.exports = {
     addUser,
     getUserByEmail,
     getUserById,
+    getUsersByName,
+    getNewestUsers,
     addImageUrl,
     getUserBio,
     addUserBio,

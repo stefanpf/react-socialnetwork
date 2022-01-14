@@ -77,4 +77,22 @@ userRouter
         }
     });
 
+userRouter.get("/find", async (req, res) => {
+    const { user } = req.query;
+    if (!user) {
+        res.sendStatus(200);
+    } else {
+        try {
+            const { rows: users } =
+                user === "newest"
+                    ? await db.getNewestUsers()
+                    : await db.getUsersByName(user);
+            res.json(users);
+        } catch (err) {
+            console.log("Error in getUsersByName:", err);
+            res.json({ success: false });
+        }
+    }
+});
+
 module.exports = userRouter;

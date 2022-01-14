@@ -300,3 +300,18 @@ button:hover {
     right: 0;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+.search-input {
+    background-color: #fff;
+    /* width: 96%; */
+    border-radius: 8px;
+    font-size: 1.3em;
+    height: 2em;
+    margin: 14px 24px 24px 24px;
+    padding: 5px 10px;
+}
+
+.search-result-image {
+    width: 100px;
+    height: 100px;
+}

@@ -1,9 +1,10 @@
 import { Component } from "react";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import Logo from "./global-components/logo";
 import ProfilePic from "./profile-components/profilePic";
 import Uploader from "./profile-components/profilePicUploader";
 import Profile from "./profile-components/profile";
-// import { Link } from "react-router-dom";
+import FindPeople from "./findPeople";
 
 export default class App extends Component {
     constructor({ userId }) {
@@ -65,15 +66,22 @@ export default class App extends Component {
                     />
                 )}
                 <section>
-                    <Profile
-                        userId={this.state.userId}
-                        first={this.state.first}
-                        last={this.state.last}
-                        bio={this.state.bio}
-                        imageUrl={this.state.imageUrl}
-                        toggleUploaderFunc={this.toggleUploader}
-                        updateBioFunc={this.updateBio}
-                    />
+                    <BrowserRouter>
+                        <Route path="/findPeople">
+                            <FindPeople />
+                        </Route>
+                        <Route path="/">
+                            <Profile
+                                userId={this.state.userId}
+                                first={this.state.first}
+                                last={this.state.last}
+                                bio={this.state.bio}
+                                imageUrl={this.state.imageUrl}
+                                toggleUploaderFunc={this.toggleUploader}
+                                updateBioFunc={this.updateBio}
+                            />
+                        </Route>
+                    </BrowserRouter>
                 </section>
             </>
         );
