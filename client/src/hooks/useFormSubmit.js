@@ -21,10 +21,7 @@ export default function useFormSubmit(url, userInput) {
                 }
             })
             .catch((err) => {
-                console.log(
-                    "Error when submitting data on /register.json:",
-                    err
-                );
+                console.log(`Error on POST to ${url}:`, err);
                 setError(true);
             });
     };
