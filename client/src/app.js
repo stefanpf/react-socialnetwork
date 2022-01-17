@@ -1,7 +1,5 @@
 import { Component } from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
-import Logo from "./global-components/logo";
-import ProfilePic from "./profile-components/profilePic";
+import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./global-components/header";
 import Uploader from "./profile-components/profilePicUploader";
 import Profile from "./profile-components/profile";

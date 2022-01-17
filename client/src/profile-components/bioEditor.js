@@ -58,7 +58,7 @@ export default class BioEditor extends Component {
                 <>
                     {this.props.bio && <div>{this.props.bio}</div>}
                     <button onClick={this.toggleEditMode}>
-                        {this.props.bio ? "edit" : "add"}
+                        {this.props.bio ? "Edit" : "Add"}
                     </button>
                 </>
             );
@@ -68,9 +68,11 @@ export default class BioEditor extends Component {
     render() {
         return (
             <>
-                <h1>I am the BioEditor Component</h1>
-                {this.state.error && <h2>Oops, something went wrong</h2>}
-                {this.renderEditor()}
+                <div>
+                    <h1>I am the BioEditor Component</h1>
+                    {this.state.error && <h2>Oops, something went wrong</h2>}
+                    {this.renderEditor()}
+                </div>
             </>
         );
     }

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function Header(props) {
     return (
         <>
-            <section>
+            <header>
                 <Logo />
                 <ProfilePic
                     first={props.first}
@@ -16,7 +16,7 @@ export default function Header(props) {
                 />
                 <Link to="/findpeople">Find People</Link> |
                 <a href="/logout">Logout</a>
-            </section>
+            </header>
         </>
     );
 }
