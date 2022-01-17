@@ -4,6 +4,7 @@ import Logo from "./global-components/logo";
 import ProfilePic from "./profile-components/profilePic";
 import Uploader from "./profile-components/profilePicUploader";
 import Profile from "./profile-components/profile";
+import OtherProfile from "./profile-components/otherProfile";
 import FindPeople from "./findPeople";
 
 export default class App extends Component {
@@ -71,6 +72,9 @@ export default class App extends Component {
                     <section>
                         <Route path="/findpeople">
                             <FindPeople />
+                        </Route>
+                        <Route path="/user/:id">
+                            <OtherProfile />
                         </Route>
                         <Route exact path="/">
                             <Profile

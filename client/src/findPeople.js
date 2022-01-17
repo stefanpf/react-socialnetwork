@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function FindPeople() {
     const [people, setPeople] = useState();
@@ -54,13 +55,15 @@ export default function FindPeople() {
             />
             {people &&
                 people.map((person) => (
-                    <div key={person.id}>
-                        <img
-                            src={person.image_url}
-                            className="search-result-image"
-                        />
-                        {person.first} {person.last}
-                    </div>
+                    <Link key={person.id} to={`/user/${person.id}`}>
+                        <div>
+                            <img
+                                src={person.image_url}
+                                className="search-result-image"
+                            />
+                            {person.first} {person.last}
+                        </div>
+                    </Link>
                 ))}
         </>
     );
