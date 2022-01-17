@@ -2,6 +2,7 @@ import { Component } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import Logo from "./global-components/logo";
 import ProfilePic from "./profile-components/profilePic";
+import Header from "./global-components/header";
 import Uploader from "./profile-components/profilePicUploader";
 import Profile from "./profile-components/profile";
 import OtherProfile from "./profile-components/otherProfile";
@@ -48,18 +49,12 @@ export default class App extends Component {
         return (
             <>
                 <BrowserRouter>
-                    <section>
-                        <Logo />
-                        <ProfilePic
-                            first={this.state.first}
-                            last={this.state.last}
-                            imageUrl={this.state.imageUrl}
-                            toggleUploaderFunc={this.toggleUploader}
-                            className="navbar-avatar"
-                        />
-                        <Link to="/findpeople">Find People</Link> |
-                        <a href="/logout">Logout</a>
-                    </section>
+                    <Header
+                        first={this.state.first}
+                        last={this.state.last}
+                        imageUrl={this.state.imageUrl}
+                        toggleUploader={this.toggleUploader}
+                    />
                     {this.state.error && (
                         <h2>Uh oh, something went wrong...</h2>
                     )}
