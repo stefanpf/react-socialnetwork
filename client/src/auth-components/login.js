@@ -17,7 +17,7 @@ export default class Login extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        fetch("/login.json", {
+        fetch("/api/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

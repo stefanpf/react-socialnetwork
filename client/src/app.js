@@ -20,7 +20,7 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        fetch(`/user/${this.state.userId}`)
+        fetch(`/api/user/${this.state.userId}`)
             .then((data) => data.json())
             .then((data) => {
                 if (data.success) {
@@ -46,27 +46,29 @@ export default class App extends Component {
     render() {
         return (
             <>
-                <section>
-                    <Logo />
-                    <ProfilePic
-                        first={this.state.first}
-                        last={this.state.last}
-                        imageUrl={this.state.imageUrl}
-                        toggleUploaderFunc={this.toggleUploader}
-                        className="navbar-avatar"
-                    />
-                    <a href="/logout">Logout</a>
-                </section>
-                {this.state.error && <h2>Uh oh, something went wrong...</h2>}
-                {this.state.uploaderIsVisible && (
-                    <Uploader
-                        userId={this.state.userId}
-                        addImageUrlFunc={this.addNewImageUrlToState}
-                        toggleUploaderFunc={this.toggleUploader}
-                    />
-                )}
-                <section>
-                    <BrowserRouter>
+                <BrowserRouter>
+                    <section>
+                        <Logo />
+                        <ProfilePic
+                            first={this.state.first}
+                            last={this.state.last}
+                            imageUrl={this.state.imageUrl}
+                            toggleUploaderFunc={this.toggleUploader}
+                            className="navbar-avatar"
+                        />
+                        <a href="/logout">Logout</a>
+                    </section>
+                    {this.state.error && (
+                        <h2>Uh oh, something went wrong...</h2>
+                    )}
+                    {this.state.uploaderIsVisible && (
+                        <Uploader
+                            userId={this.state.userId}
+                            addImageUrlFunc={this.addNewImageUrlToState}
+                            toggleUploaderFunc={this.toggleUploader}
+                        />
+                    )}
+                    <section>
                         <Route path="/findpeople">
                             <FindPeople />
                         </Route>
@@ -81,8 +83,8 @@ export default class App extends Component {
                                 updateBioFunc={this.updateBio}
                             />
                         </Route>
-                    </BrowserRouter>
-                </section>
+                    </section>
+                </BrowserRouter>
             </>
         );
     }

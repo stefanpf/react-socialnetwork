@@ -19,7 +19,7 @@ export default class ResetPassword extends Component {
     handleSubmit(e) {
         e.preventDefault();
         if (this.state.stage === 1) {
-            fetch("/password/reset/start", {
+            fetch("/api/password/reset/start", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -35,7 +35,7 @@ export default class ResetPassword extends Component {
                     }
                 });
         } else if (this.state.stage === 2) {
-            fetch("/password/reset/confirm", {
+            fetch("/api/password/reset/confirm", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -24,7 +24,7 @@ export default class BioEditor extends Component {
 
     updateBio() {
         if (this.state.bioDraft) {
-            fetch(`/user/profile/${this.props.userId}`, {
+            fetch(`/api/user/profile/${this.props.userId}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

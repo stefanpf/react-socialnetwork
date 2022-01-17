@@ -6,7 +6,7 @@ export default function FindPeople() {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        fetch(`find?user=newest`)
+        fetch(`/api/find?user=newest`)
             .then((res) => res.json())
             .then((data) => {
                 if (data.success) {
@@ -21,7 +21,7 @@ export default function FindPeople() {
     useEffect(() => {
         let abort = false;
         if (searchTerm) {
-            fetch(`/find?user=${searchTerm}`)
+            fetch(`/api/find?user=${searchTerm}`)
                 .then((res) => res.json())
                 .then((data) => {
                     if (!abort) {

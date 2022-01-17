@@ -4,13 +4,13 @@ const { compare, hash } = require("../utils/bc");
 const db = require("../utils/db");
 const { checkValidEmail } = require("../utils/helper-functions");
 
-authRouter.get("/user/id.json", function (req, res) {
+authRouter.get("/api/user/id", function (req, res) {
     res.json({
         userId: req.session.userId,
     });
 });
 
-authRouter.post("/register.json", (req, res) => {
+authRouter.post("/api/register", (req, res) => {
     const { first, last, email, password } = req.body;
     if (checkValidEmail(email) && first != "" && last != "" && password != "") {
         hash(password)
@@ -35,7 +35,7 @@ authRouter.post("/register.json", (req, res) => {
     }
 });
 
-authRouter.post("/login.json", (req, res) => {
+authRouter.post("/api/login", (req, res) => {
     const { email, password: typedPassword } = req.body;
     let userId;
     if (email != "" && typedPassword != "") {

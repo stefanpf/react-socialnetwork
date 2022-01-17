@@ -5,7 +5,7 @@ const db = require("../utils/db");
 const { sendEmail } = require("../utils/ses");
 const cryptoRandomString = require("crypto-random-string");
 
-resetPasswordRouter.post("/password/reset/start", (req, res) => {
+resetPasswordRouter.post("/api/password/reset/start", (req, res) => {
     const { email } = req.body;
     if (email != "") {
         db.getUserByEmail(email)
@@ -26,7 +26,7 @@ resetPasswordRouter.post("/password/reset/start", (req, res) => {
             })
             .then(() => res.json({ success: true }))
             .catch((err) => {
-                console.log("Error in /password/reset/start:", err);
+                console.log("Error in /api/password/reset/start:", err);
                 res.json({ success: false });
             });
     } else {
@@ -34,7 +34,7 @@ resetPasswordRouter.post("/password/reset/start", (req, res) => {
     }
 });
 
-resetPasswordRouter.post("/password/reset/confirm", (req, res) => {
+resetPasswordRouter.post("/api/password/reset/confirm", (req, res) => {
     const { email, password, resetCode: typedResetCode } = req.body;
     if (email != "" && password != "" && typedResetCode != "") {
         db.getResetCode(email)
@@ -50,7 +50,7 @@ resetPasswordRouter.post("/password/reset/confirm", (req, res) => {
             })
             .then(() => res.json({ success: true }))
             .catch((err) => {
-                console.log("Error in /password/reset/confirm:", err);
+                console.log("Error in /api/password/reset/confirm:", err);
                 res.json({ success: false });
             });
     } else {

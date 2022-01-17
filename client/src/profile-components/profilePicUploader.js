@@ -18,7 +18,7 @@ export default class Uploader extends Component {
         e.preventDefault();
         const fd = new FormData();
         fd.append("file", this.state.file);
-        fetch(`/user/upload/${this.state.userId}`, {
+        fetch(`/api/user/upload/${this.state.userId}`, {
             method: "POST",
             body: fd,
         })

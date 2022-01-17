@@ -4,7 +4,7 @@ const db = require("../utils/db");
 const { uploader } = require("../utils/upload");
 const s3 = require("../utils/s3");
 
-userRouter.get("/user/:id", (req, res) => {
+userRouter.get("/api/user/:id", (req, res) => {
     db.getUserById(req.params.id)
         .then(({ rows }) => {
             if (rows) {
@@ -27,7 +27,7 @@ userRouter.get("/user/:id", (req, res) => {
 });
 
 userRouter.post(
-    "/user/upload/:id",
+    "/api/user/upload/:id",
     uploader.single("file"),
     s3.upload,
     (req, res) => {
@@ -49,7 +49,7 @@ userRouter.post(
 );
 
 userRouter
-    .route("/user/profile/:id")
+    .route("/api/user/profile/:id")
     .get((req, res) => {
         db.getUserBio(req.params.id)
             .then(({ rows }) => {
@@ -77,7 +77,7 @@ userRouter
         }
     });
 
-userRouter.get("/find", async (req, res) => {
+userRouter.get("/api/find", async (req, res) => {
     const { user } = req.query;
     if (!user) {
         res.sendStatus(200);
