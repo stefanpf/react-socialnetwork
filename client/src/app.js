@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import Logo from "./global-components/logo";
 import ProfilePic from "./profile-components/profilePic";
 import Uploader from "./profile-components/profilePicUploader";
@@ -57,6 +57,7 @@ export default class App extends Component {
                             toggleUploaderFunc={this.toggleUploader}
                             className="navbar-avatar"
                         />
+                        <Link to="/findpeople">Find People</Link> |
                         <a href="/logout">Logout</a>
                     </section>
                     {this.state.error && (
@@ -74,7 +75,7 @@ export default class App extends Component {
                             <FindPeople />
                         </Route>
                         <Route path="/user/:id">
-                            <OtherProfile />
+                            <OtherProfile userId={this.state.userId} />
                         </Route>
                         <Route exact path="/">
                             <Profile
