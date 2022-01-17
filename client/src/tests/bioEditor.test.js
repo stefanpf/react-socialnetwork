@@ -1,5 +1,5 @@
 import BioEditor from "../profile-components/bioEditor.js";
-import { render, waitFor, fireEvent } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 
 test("when no bio is passed, the 'Add' button is rendered", () => {
     const { container } = render(<BioEditor />);
