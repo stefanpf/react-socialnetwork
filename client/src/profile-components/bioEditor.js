@@ -1,79 +1,57 @@
-import { Component } from "react";
+import { useState, useEffect } from "react";
 
-export default class BioEditor extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            editMode: false,
-        };
-        this.toggleEditMode = this.toggleEditMode.bind(this);
-        this.setBioDraft = this.setBioDraft.bind(this);
-        this.renderEditor = this.renderEditor.bind(this);
-        this.updateBio = this.updateBio.bind(this);
-    }
+export default function BioEditor(props) {
+    const { userId, bio, updateBioFunc } = props;
+    const [editMode, setEditMode] = useState(false);
+    const [bioDraft, setBioDraft] = useState();
+    const [postDraft, setPostDraft] = useState(false);
+    const [error, setError] = useState(false);
 
-    toggleEditMode() {
-        this.setState({ editMode: !this.state.editMode });
-    }
-
-    setBioDraft({ target }) {
-        this.setState({
-            bioDraft: target.value,
-        });
-    }
-
-    updateBio() {
-        if (this.state.bioDraft != this.props.bio) {
-            fetch(`/api/user/profile/${this.props.userId}`, {
+    useEffect(() => {
+        if (bioDraft != bio) {
+            fetch(`/api/user/profile/${userId}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(this.state),
+                body: JSON.stringify({ bioDraft }),
             })
                 .then((res) => res.json())
                 .then(() => {
-                    this.props.updateBioFunc(this.state.bioDraft);
-                    this.toggleEditMode();
+                    updateBioFunc(bioDraft);
+                    setEditMode(false);
+                    setPostDraft(false);
                 })
-                .catch(() => this.setState({ error: true }));
+                .catch(() => setError(true));
         } else {
-            this.toggleEditMode();
+            setEditMode(false);
+            setPostDraft(false);
         }
-    }
+    }, [postDraft]);
 
-    renderEditor() {
-        if (this.state.editMode) {
-            return (
-                <>
-                    <textarea
-                        defaultValue={this.props.bio}
-                        onChange={this.setBioDraft}
-                    />
-                    <button onClick={this.updateBio}>Save</button>
-                </>
-            );
-        } else {
-            return (
-                <>
-                    {this.props.bio && <div>{this.props.bio}</div>}
-                    <button onClick={this.toggleEditMode}>
-                        {this.props.bio ? "Edit" : "Add"}
-                    </button>
-                </>
-            );
-        }
-    }
-
-    render() {
-        return (
-            <>
-                <div>
-                    <h1>I am the BioEditor Component</h1>
-                    {this.state.error && <h2>Oops, something went wrong</h2>}
-                    {this.renderEditor()}
-                </div>
-            </>
-        );
-    }
+    return (
+        <>
+            <div>
+                <h1>I am the BioEditor Component</h1>
+                {error && <h2>Oops, something went wrong</h2>}
+                {editMode && (
+                    <>
+                        <textarea
+                            defaultValue={bio}
+                            onChange={(e) => setBioDraft(e.target.value)}
+                        />
+                        <button onClick={() => setPostDraft(true)}>Save</button>
+                    </>
+                )}
+                {!editMode && (
+                    <>
+                        {bio && <div>{bio}</div>}
+                        <button onClick={() => setEditMode(true)}>
+                            {bio ? "Edit" : "Add"}
+                        </button>
+                    </>
+                )}
+            </div>
+        </>
+    );
 }
