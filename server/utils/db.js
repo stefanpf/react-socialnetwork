@@ -97,6 +97,39 @@ function updatePassword(email, password) {
     return db.query(q, params);
 }
 
+function getFriendshipStatus(user1, user2) {
+    const q = `SELECT sender_id, recipient_id, accepted FROM friendships 
+            WHERE (recipient_id = $1 AND sender_id = $2) 
+            OR (recipient_id = $2 AND sender_id = $1);`;
+    const params = [user1, user2];
+    return db.query(q, params);
+}
+
+function makeFriendRequest(sender, recipient) {
+    const q = `INSERT INTO friendships (sender_id, recipient_id)
+            VALUES ($1, $2)
+            RETURNING accepted;`;
+    const params = [sender, recipient];
+    return db.query(q, params);
+}
+
+function acceptFriendRequest(acceptor, acceptee) {
+    const q = `UPDATE friendships
+            SET accepted = true
+            WHERE (recipient_id = $1 AND sender_id = $2)
+            RETURNING accepted;`;
+    const params = [acceptor, acceptee];
+    return db.query(q, params);
+}
+
+function cancelFriendRequestOrEndFriendShip(user1, user2) {
+    const q = `DELETE FROM friendships
+            WHERE (recipient_id = $1 AND sender_id = $2) 
+            OR (recipient_id = $2 AND sender_id = $1);`;
+    const params = [user1, user2];
+    return db.query(q, params);
+}
+
 module.exports = {
     addUser,
     getUserByEmail,
@@ -109,4 +142,8 @@ module.exports = {
     setResetCode,
     getResetCode,
     updatePassword,
+    getFriendshipStatus,
+    makeFriendRequest,
+    acceptFriendRequest,
+    cancelFriendRequestOrEndFriendShip,
 };

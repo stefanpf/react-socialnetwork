@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router";
+import FriendButton from "./friendButton";
 
 export default function OtherProfile(props) {
     const { userId } = props;
@@ -39,6 +40,10 @@ export default function OtherProfile(props) {
                         {userData.first} {userData.last}
                     </div>
                     <div>{userData.bio}</div>
+                    <FriendButton
+                        viewedByThisUser={userId}
+                        visibleOnProfileWithId={id}
+                    />
                 </div>
             )}
         </>

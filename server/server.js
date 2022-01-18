@@ -3,6 +3,7 @@ const compression = require("compression");
 const cookieSession = require("cookie-session");
 const path = require("path");
 const authRouter = require("./routers/auth-router");
+const friendshipRouter = require("./routers/friendship-router");
 const resetPasswordRouter = require("./routers/reset-password-router");
 const userRouter = require("./routers/user-router");
 const app = express();
@@ -32,6 +33,7 @@ app.use(express.json());
 
 // ROUTES
 app.use(authRouter);
+app.use(friendshipRouter);
 app.use(resetPasswordRouter);
 app.use(userRouter);
 app.get("*", function (req, res) {
