@@ -65,16 +65,16 @@ userRouter
     })
     .post((req, res) => {
         const { bioDraft: userBio } = req.body;
-        if (userBio != "") {
-            db.addUserBio(req.params.id, userBio)
-                .then(res.json({ success: true }))
-                .catch((err) => {
-                    console.log("Error in addUserBio:", err);
-                    res.json({ success: false });
-                });
-        } else {
-            res.json({ success: false });
-        }
+        // if (userBio != "") {
+        db.addUserBio(req.params.id, userBio)
+            .then(res.json({ success: true }))
+            .catch((err) => {
+                console.log("Error in addUserBio:", err);
+                res.json({ success: false });
+            });
+        // } else {
+        //     res.json({ success: false });
+        // }
     });
 
 userRouter.get("/api/find", async (req, res) => {
