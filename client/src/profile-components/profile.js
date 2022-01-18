@@ -12,8 +12,6 @@ export default function Profile(props) {
             />
             <BioEditor
                 userId={props.userId}
-                first={props.first}
-                last={props.last}
                 bio={props.bio}
                 updateBioFunc={props.updateBioFunc}
             />
