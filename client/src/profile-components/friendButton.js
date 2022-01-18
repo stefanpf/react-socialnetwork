@@ -9,9 +9,9 @@ export default function FriendButton(props) {
     const [error, setError] = useState(false);
 
     const friendButtonText = {
-        noFriends: `Add As Friend`,
+        noFriends: "Add As Friend",
         friends: "Remove Friend",
-        waitingForAnAnswer: `Cancel Request To`,
+        waitingForAnAnswer: "Cancel Request",
         someoneWantsToBeMyFriend: "Accept Request",
     };
 
