@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function BioEditor(props) {
     const { userId, bio, updateBioFunc } = props;
