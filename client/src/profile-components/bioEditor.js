@@ -23,10 +23,7 @@ export default class BioEditor extends Component {
     }
 
     updateBio() {
-        if (
-            this.state.bioDraft != this.props.bio ||
-            this.state.bioDraft == ""
-        ) {
+        if (this.state.bioDraft != this.props.bio) {
             fetch(`/api/user/profile/${this.props.userId}`, {
                 method: "POST",
                 headers: {
