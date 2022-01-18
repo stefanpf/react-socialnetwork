@@ -1,63 +1,53 @@
-import { Component } from "react";
+import { useState } from "react";
+import useForm from "../hooks/useForm";
 
-export default class ResetPassword extends Component {
-    constructor() {
-        super();
-        this.state = {
-            stage: 1,
-        };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+export default function ResetPassword() {
+    const [userInput, handleChange] = useForm();
+    const [stage, setStage] = useState(1);
+    const [error, setError] = useState(false);
 
-    handleChange({ target }) {
-        this.setState({
-            [target.name]: target.value,
-        });
-    }
-
-    handleSubmit(e) {
+    function submit(e) {
         e.preventDefault();
-        if (this.state.stage === 1) {
+        if (stage === 1) {
             fetch("/api/password/reset/start", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(this.state),
+                body: JSON.stringify(userInput),
             })
                 .then((data) => data.json())
                 .then((data) => {
                     if (data.success) {
-                        this.setState({ stage: 2 });
+                        setStage(2);
                     } else {
-                        this.setState({ error: true });
+                        setError(true);
                     }
                 });
-        } else if (this.state.stage === 2) {
+        } else if (stage === 2) {
             fetch("/api/password/reset/confirm", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(this.state),
+                body: JSON.stringify(userInput),
             })
                 .then((data) => data.json())
                 .then((data) => {
                     if (data.success) {
-                        this.setState({ stage: 3 });
+                        setStage(3);
                     } else {
-                        this.setState({ error: true });
+                        setError(true);
                     }
                 });
         }
     }
 
-    renderStage() {
-        if (this.state.stage === 1) {
+    function renderStage() {
+        if (stage === 1) {
             return (
                 <>
-                    {this.state.error && <h2>Oops, something went wrong...</h2>}
+                    {error && <h2>Oops, something went wrong...</h2>}
                     <div className="form-container">
                         <form>
                             <input
@@ -65,13 +55,13 @@ export default class ResetPassword extends Component {
                                 name="email"
                                 placeholder="your@email.com"
                                 required
-                                onChange={this.handleChange}
+                                onChange={handleChange}
                                 key="1"
                             ></input>
                             <button
                                 type="submit"
                                 className="button-cta"
-                                onClick={this.handleSubmit}
+                                onClick={submit}
                             >
                                 Reset Password
                             </button>
@@ -79,10 +69,10 @@ export default class ResetPassword extends Component {
                     </div>
                 </>
             );
-        } else if (this.state.stage === 2) {
+        } else if (stage === 2) {
             return (
                 <>
-                    {this.state.error && <h2>Oops, something went wrong...</h2>}
+                    {error && <h2>Oops, something went wrong...</h2>}
                     <div className="form-container">
                         <form>
                             <input
@@ -90,7 +80,7 @@ export default class ResetPassword extends Component {
                                 name="resetCode"
                                 placeholder="your reset code"
                                 required
-                                onChange={this.handleChange}
+                                onChange={handleChange}
                                 key="2"
                             ></input>
                             <input
@@ -98,13 +88,13 @@ export default class ResetPassword extends Component {
                                 name="password"
                                 placeholder="your new password"
                                 required
-                                onChange={this.handleChange}
+                                onChange={handleChange}
                                 key="3"
                             ></input>
                             <button
                                 type="submit"
                                 className="button-cta"
-                                onClick={this.handleSubmit}
+                                onClick={submit}
                             >
                                 Save new password
                             </button>
@@ -112,7 +102,7 @@ export default class ResetPassword extends Component {
                     </div>
                 </>
             );
-        } else if (this.state.stage === 3) {
+        } else if (stage === 3) {
             return (
                 <>
                     <div>
@@ -122,12 +112,11 @@ export default class ResetPassword extends Component {
             );
         }
     }
-    render() {
-        return (
-            <>
-                <h1>Password Reset</h1>
-                {this.renderStage()}
-            </>
-        );
-    }
+
+    return (
+        <>
+            <h1>Password Reset</h1>
+            {renderStage()}
+        </>
+    );
 }
