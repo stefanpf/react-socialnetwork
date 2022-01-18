@@ -1,81 +1,72 @@
-import { Component } from "react";
+import { useState } from "react";
 
-export default class Uploader extends Component {
-    constructor({ userId, addImageUrlFunc, toggleUploaderFunc }) {
-        super();
-        this.addImageUrlFunc = addImageUrlFunc;
-        this.toggleUploaderFunc = toggleUploaderFunc;
-        this.state = { userId, spinnerIsVisible: false };
-        this.selectFile = this.selectFile.bind(this);
-        this.uploadImage = this.uploadImage.bind(this);
-        this.toggleSpinnerVisibility = this.toggleSpinnerVisibility.bind(this);
+export default function Uploader(props) {
+    const { userId, addImageUrlFunc, toggleUploaderFunc } = props;
+    const [spinnerIsVisible, setSpinnerIsVisible] = useState(false);
+    const [file, setFile] = useState();
+    const [error, setError] = useState(false);
+
+    function toggleSpinnerVisibility() {
+        setSpinnerIsVisible(!spinnerIsVisible);
     }
 
-    selectFile(e) {
-        this.setState({ file: e.target.files[0] });
+    function selectFile(e) {
+        setFile(e.target.files[0]);
     }
 
-    toggleSpinnerVisibility() {
-        this.setState({ spinnerIsVisible: !this.state.spinnerIsVisible });
-    }
-
-    uploadImage(e) {
+    function uploadImage(e) {
         e.preventDefault();
-        this.toggleSpinnerVisibility();
+        toggleSpinnerVisibility();
         const fd = new FormData();
-        fd.append("file", this.state.file);
-        fetch(`/api/user/upload/${this.state.userId}`, {
+        fd.append("file", file);
+        fetch(`/api/user/upload/${userId}`, {
             method: "POST",
             body: fd,
         })
             .then((res) => res.json())
             .then((data) => {
-                this.addImageUrlFunc(data.imageUrl);
-                this.toggleSpinnerVisibility();
-                this.toggleUploaderFunc();
+                addImageUrlFunc(data.imageUrl);
+                toggleSpinnerVisibility();
+                toggleUploaderFunc();
             })
-            .catch((err) => {
-                console.log("Error in uploadImage:", err);
+            .catch(() => {
+                setError(true);
             });
     }
 
-    render() {
-        return (
-            <>
-                <div
-                    onClick={() => this.toggleUploaderFunc()}
-                    className="overlay"
-                ></div>
-                <div className="image-modal">
-                    <div className="image-modal-content">
-                        <form className="upload-form">
-                            <input
-                                onChange={this.selectFile}
-                                type="file"
-                                name="file"
-                                accept="image/*"
-                                required
+    return (
+        <>
+            <div onClick={toggleUploaderFunc} className="overlay"></div>
+            <div className="image-modal">
+                <div className="image-modal-content">
+                    <form className="upload-form">
+                        <input
+                            onChange={selectFile}
+                            type="file"
+                            name="file"
+                            accept="image/*"
+                            required
+                        />
+                        {spinnerIsVisible && (
+                            <img
+                                src="/img/spinner.gif"
+                                alt="Upload in progress..."
+                                className="spinner-animated"
                             />
-                            {this.state.spinnerIsVisible && (
-                                <img
-                                    src="/img/spinner.gif"
-                                    alt="Upload in progress..."
-                                    className="spinner-animated"
-                                />
-                            )}
-                            <button type="submit" onClick={this.uploadImage}>
-                                Upload Image
-                            </button>
-                        </form>
-                        <button
-                            onClick={() => this.toggleUploaderFunc()}
-                            className="close-modal-button"
-                        >
-                            X
+                        )}
+                        <button type="submit" onClick={uploadImage}>
+                            Upload Image
                         </button>
-                    </div>
+                    </form>
+                    {error && <h3>Oops, something went wrong...</h3>}
+                    <button
+                        onClick={toggleUploaderFunc}
+                        className="close-modal-button"
+                    >
+                        X
+                    </button>
                 </div>
-            </>
-        );
-    }
+            </div>
+        </>
+    );
 }
