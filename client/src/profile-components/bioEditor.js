@@ -47,7 +47,12 @@ export default function BioEditor(props) {
                 {!editMode && (
                     <>
                         {bio && <div>{bio}</div>}
-                        <button onClick={toggleEditMode}>
+                        <button
+                            onClick={() => {
+                                setBioDraft(bio);
+                                toggleEditMode();
+                            }}
+                        >
                             {bio ? "Edit" : "Add"}
                         </button>
                     </>
