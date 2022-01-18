@@ -4,10 +4,13 @@ export default function BioEditor(props) {
     const { userId, bio, updateBioFunc } = props;
     const [editMode, setEditMode] = useState(false);
     const [bioDraft, setBioDraft] = useState();
-    const [postDraft, setPostDraft] = useState(false);
     const [error, setError] = useState(false);
 
-    useEffect(() => {
+    function toggleEditMode() {
+        setEditMode(!editMode);
+    }
+
+    function submit() {
         if (bioDraft != bio) {
             fetch(`/api/user/profile/${userId}`, {
                 method: "POST",
@@ -19,15 +22,13 @@ export default function BioEditor(props) {
                 .then((res) => res.json())
                 .then(() => {
                     updateBioFunc(bioDraft);
-                    setEditMode(false);
-                    setPostDraft(false);
+                    toggleEditMode();
                 })
                 .catch(() => setError(true));
         } else {
-            setEditMode(false);
-            setPostDraft(false);
+            toggleEditMode();
         }
-    }, [postDraft]);
+    }
 
     return (
         <>
@@ -40,13 +41,13 @@ export default function BioEditor(props) {
                             defaultValue={bio}
                             onChange={(e) => setBioDraft(e.target.value)}
                         />
-                        <button onClick={() => setPostDraft(true)}>Save</button>
+                        <button onClick={submit}>Save</button>
                     </>
                 )}
                 {!editMode && (
                     <>
                         {bio && <div>{bio}</div>}
-                        <button onClick={() => setEditMode(true)}>
+                        <button onClick={toggleEditMode}>
                             {bio ? "Edit" : "Add"}
                         </button>
                     </>
