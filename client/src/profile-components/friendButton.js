@@ -73,6 +73,7 @@ export default function FriendButton(props) {
                 });
         }
     }
+
     return (
         <>
             <button className="button-cta" onClick={changeFriendship}>

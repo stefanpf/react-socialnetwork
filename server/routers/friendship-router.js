@@ -56,18 +56,12 @@ friendshipRouter.post("/api/friend/accept/:id", (req, res) => {
 
 friendshipRouter.get("/api/get-friends", (req, res) => {
     const { userId } = req.session;
-    let friends = [];
-    db.getFriendsFromSenderId(userId)
+    db.getFriendsByUserId(userId)
         .then(({ rows }) => {
-            rows.forEach((row) => friends.push(row));
-            return db.getFriendsFromRecipientId(userId);
-        })
-        .then(({ rows }) => {
-            rows.forEach((row) => friends.push(row));
-            res.json({ friends, success: true });
+            res.json({ friends: rows, success: true });
         })
         .catch((err) => {
-            console.log("Err in getFriends:", err);
+            console.log("Err in getFriendsByUserId:", err);
             res.json({ success: false });
         });
 });
