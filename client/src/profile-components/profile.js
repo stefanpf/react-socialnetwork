@@ -1,10 +1,13 @@
 import ProfilePic from "./profilePic";
 import BioEditor from "./bioEditor";
+import FriendList from "./friendList";
 
 export default function Profile(props) {
     return (
         <>
-            <h1>This is the Profile component</h1>
+            <h1>
+                Hello {props.first} {props.last} User {props.userId}
+            </h1>
             <ProfilePic
                 imageUrl={props.imageUrl}
                 toggleUploaderFunc={props.toggleUploaderFunc}
@@ -15,6 +18,7 @@ export default function Profile(props) {
                 bio={props.bio}
                 updateBioFunc={props.updateBioFunc}
             />
+            <FriendList />
         </>
     );
 }

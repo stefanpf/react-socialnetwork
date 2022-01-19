@@ -44,13 +44,30 @@ friendshipRouter.post("/api/friend/cancel/:id", (req, res) => {
 friendshipRouter.post("/api/friend/accept/:id", (req, res) => {
     const loggedInUser = req.session.userId;
     const otherUser = req.params.id;
-    console.log("accept friend request from user:", otherUser);
     db.acceptFriendRequest(loggedInUser, otherUser)
         .then(() => {
             res.json({ success: true });
         })
         .catch((err) => {
             console.log("Err in acceptFriendRequest:", err);
+            res.json({ success: false });
+        });
+});
+
+friendshipRouter.get("/api/get-friends", (req, res) => {
+    const { userId } = req.session;
+    let friends = [];
+    db.getFriendsFromSenderId(userId)
+        .then(({ rows }) => {
+            rows.forEach((row) => friends.push(row));
+            return db.getFriendsFromRecipientId(userId);
+        })
+        .then(({ rows }) => {
+            rows.forEach((row) => friends.push(row));
+            res.json({ friends, success: true });
+        })
+        .catch((err) => {
+            console.log("Err in getFriends:", err);
             res.json({ success: false });
         });
 });

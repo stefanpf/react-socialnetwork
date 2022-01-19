@@ -130,6 +130,24 @@ function cancelFriendRequestOrEndFriendShip(user1, user2) {
     return db.query(q, params);
 }
 
+function getFriendsFromSenderId(senderId) {
+    const q = `SELECT users.id, users.first, users.last, users.image_url
+            FROM users JOIN friendships AS f
+            on users.id = f.recipient_id
+            WHERE (f.sender_id = $1 AND accepted = true);`;
+    const params = [senderId];
+    return db.query(q, params);
+}
+
+function getFriendsFromRecipientId(recipientId) {
+    const q = `SELECT users.id, users.first, users.last, users.image_url
+            FROM users JOIN friendships AS f
+            on users.id = f.sender_id
+            WHERE (f.recipient_id = $1 AND accepted = true);`;
+    const params = [recipientId];
+    return db.query(q, params);
+}
+
 module.exports = {
     addUser,
     getUserByEmail,
@@ -146,4 +164,6 @@ module.exports = {
     makeFriendRequest,
     acceptFriendRequest,
     cancelFriendRequestOrEndFriendShip,
+    getFriendsFromSenderId,
+    getFriendsFromRecipientId,
 };
