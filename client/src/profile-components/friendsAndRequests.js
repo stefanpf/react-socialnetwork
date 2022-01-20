@@ -47,6 +47,9 @@ export default function FriendsAndRequests() {
                 } else {
                     setError(true);
                 }
+            })
+            .catch(() => {
+                setError(true);
             });
     }
 
@@ -61,6 +64,9 @@ export default function FriendsAndRequests() {
                 } else {
                     setError(true);
                 }
+            })
+            .catch(() => {
+                setError(true);
             });
     }
 
