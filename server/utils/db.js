@@ -131,11 +131,11 @@ function cancelFriendRequestOrEndFriendShip(user1, user2) {
 }
 
 function getFriendsByUserId(userId) {
-    const q = `WITH matches as (
-            SELECT sender_id, recipient_id
-            FROM friendships 
-            WHERE recipient_id = $1 OR sender_id = $1
-            AND accepted
+    const q = `WITH matches AS (
+                SELECT sender_id, recipient_id
+                FROM friendships 
+                WHERE recipient_id = $1 OR sender_id = $1
+                AND accepted
             ),
             filtered_matches AS (
                 SELECT 
