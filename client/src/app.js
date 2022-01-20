@@ -5,6 +5,7 @@ import Uploader from "./profile-components/profilePicUploader";
 import Profile from "./profile-components/profile";
 import OtherProfile from "./profile-components/otherProfile";
 import FindPeople from "./findPeople";
+import FriendsAndRequests from "./profile-components/friendsAndRequests";
 
 export default class App extends Component {
     constructor({ userId }) {
@@ -69,6 +70,9 @@ export default class App extends Component {
                         </Route>
                         <Route path="/user/:id">
                             <OtherProfile userId={this.state.userId} />
+                        </Route>
+                        <Route path="/friends-and-requests">
+                            <FriendsAndRequests userId={this.state.userId} />
                         </Route>
                         <Route exact path="/">
                             <Profile
