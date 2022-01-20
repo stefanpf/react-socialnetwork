@@ -148,13 +148,47 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    min-height: 100%;
+}
+
 body {
     background-color: hotpink;
     font-family: "Avenir", Arial, sans-serif;
+    color: white;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+header {
+    height: 100px;
+    border: 2px solid blue;
+    padding: 2px 46px 0px 46px;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 33px;
+    letter-spacing: 0.08em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+strong {
+    color: #f2da03;
 }
 
 input {
     all: unset;
+    color: #1b105c;
+}
+
+input:focus {
+    outline: 1px solid #241293;
 }
 
 button {
@@ -181,7 +215,14 @@ button:hover {
 }
 
 .logo-image {
-    width: 100px;
+    width: 70px;
+}
+
+.navbar-avatar {
+    width: 70px;
+    height: 70px;
+    border: 3px solid red;
+    border-radius: 50%;
 }
 
 .form-container {
@@ -239,17 +280,6 @@ form input:focus {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-button:hover {
-    box-shadow: 0px 4px 4px rgba(36, 18, 147, 0.4);
-}
-
-.navbar-avatar {
-    width: 100px;
-    height: 100px;
-    border: 3px solid red;
-    border-radius: 50%;
 }
 
 .profile-avatar {
@@ -311,12 +341,39 @@ button:hover {
     padding: 5px 10px;
 }
 
-.search-result-image {
-    width: 100px;
-    height: 100px;
-}
-
 .spinner-animated {
     width: 50px;
     height: 50px;
+}
+
+/* SEARCH RESULT STYLES */
+/* -------------------- */
+
+.search-results-wrapper {
+    margin: 24px 0px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    justify-items: center;
+}
+
+.search-result {
+    width: 300px;
+    margin: 12px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    cursor: pointer;
+}
+
+.search-result-image img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+}
+
+.search-result-text {
+    font-size: 24px;
+    font-weight: 800;
 }

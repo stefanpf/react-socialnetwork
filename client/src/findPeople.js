@@ -53,18 +53,21 @@ export default function FindPeople() {
                 className="search-input"
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
-            {people &&
-                people.map((person) => (
-                    <Link key={person.id} to={`/user/${person.id}`}>
-                        <div>
-                            <img
-                                src={person.image_url}
-                                className="search-result-image"
-                            />
-                            {person.first} {person.last}
-                        </div>
-                    </Link>
-                ))}
+            <div className="search-results-wrapper">
+                {people &&
+                    people.map((person) => (
+                        <Link key={person.id} to={`/user/${person.id}`}>
+                            <div className="search-result">
+                                <div className="search-result-image">
+                                    <img src={person.image_url} />
+                                </div>
+                                <div className="search-result-text">
+                                    {person.first} {person.last}
+                                </div>
+                            </div>
+                        </Link>
+                    ))}
+            </div>
         </>
     );
 }
