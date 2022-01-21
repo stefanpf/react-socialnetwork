@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-export default function FriendList() {
+export default function FriendList(props) {
+    const { id } = props;
     const [error, setError] = useState(false);
     const [friends, setFriends] = useState();
 
     useEffect(() => {
-        fetch(`/api/get-friends`)
+        fetch(`/api/get-friends/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 if (data.success) {
@@ -22,7 +23,6 @@ export default function FriendList() {
 
     return (
         <>
-            <h2>My Friends:</h2>
             {error && <h2>Oops, something went wrong...</h2>}
             {friends &&
                 friends.map((friend) => (

@@ -66,9 +66,9 @@ friendshipRouter.get("/api/get-friends-and-requests", (req, res) => {
         });
 });
 
-friendshipRouter.get("/api/get-friends", (req, res) => {
-    const { userId } = req.session;
-    db.getFriendsByUserId(userId)
+friendshipRouter.get("/api/get-friends/:id", (req, res) => {
+    const { id } = req.params;
+    db.getFriendsByUserId(id)
         .then(({ rows }) => {
             res.json({ friends: rows, success: true });
         })

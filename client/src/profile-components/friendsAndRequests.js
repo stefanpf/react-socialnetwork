@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import {
     acceptFriendRequest,
     rejectRequestOrEndFriendship,
@@ -85,15 +86,19 @@ export default function FriendsAndRequests() {
             {friends &&
                 friends.map((friend) => {
                     return (
-                        <div key={friend.id}>
-                            <img src={friend.image_url} />
-                            {friend.first} {friend.last}
-                            <button
-                                onClick={() => handleRejectOrCancel(friend.id)}
-                            >
-                                End Friendship
-                            </button>
-                        </div>
+                        <Link key={friend.id} to={`/user/${friend.id}`}>
+                            <div>
+                                <img src={friend.image_url} />
+                                {friend.first} {friend.last}
+                                <button
+                                    onClick={() =>
+                                        handleRejectOrCancel(friend.id)
+                                    }
+                                >
+                                    End Friendship
+                                </button>
+                            </div>
+                        </Link>
                     );
                 })}
         </>

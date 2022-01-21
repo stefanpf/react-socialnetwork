@@ -18,7 +18,8 @@ export default function Profile(props) {
                 bio={props.bio}
                 updateBioFunc={props.updateBioFunc}
             />
-            <FriendList />
+            <h2>My Friends:</h2>
+            <FriendList id={props.userId} />
         </>
     );
 }

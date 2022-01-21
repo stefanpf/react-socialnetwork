@@ -47,7 +47,7 @@ export default function FindPeople() {
 
     return (
         <>
-            <h2>This is the FindPeople Component</h2>
+            <h2>Find your friends:</h2>
             {error && <h2>Oops, something went wrong...</h2>}
             <input
                 className="search-input"

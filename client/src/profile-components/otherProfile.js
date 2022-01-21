@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router";
+import { useSelector } from "react-redux";
 import FriendButton from "./friendButton";
+import FriendList from "./friendList";
 
 export default function OtherProfile(props) {
     const { userId } = props;
@@ -8,6 +10,14 @@ export default function OtherProfile(props) {
     const history = useHistory();
     const [userData, setUserData] = useState();
     const [error, setError] = useState(false);
+    const loggedInUsersFriends = useSelector(
+        (state) =>
+            state.friendsAndRequests &&
+            state.friendsAndRequests.filter((friendship) => friendship.accepted)
+    );
+    const loggedInUserAndOtherProfileAreFriends =
+        loggedInUsersFriends &&
+        loggedInUsersFriends.some((friend) => friend.id == id);
 
     useEffect(() => {
         if (userId == id) {
@@ -45,6 +55,13 @@ export default function OtherProfile(props) {
                         visibleOnProfileWithId={id}
                     />
                 </div>
+            )}
+
+            {loggedInUserAndOtherProfileAreFriends && (
+                <>
+                    <h2>These are their friends:</h2>
+                    <FriendList id={id} />
+                </>
             )}
         </>
     );
