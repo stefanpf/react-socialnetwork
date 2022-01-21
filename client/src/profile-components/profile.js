@@ -30,7 +30,6 @@ export default function Profile(props) {
             />
             <h2>My Friends:</h2>
             <FriendList id={userId} />
-            <h2>My Wall:</h2>
             <Wall authorId={userId} id={userId} />
         </>
     );
