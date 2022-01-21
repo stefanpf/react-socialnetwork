@@ -1,17 +1,20 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Header from "./global-components/header";
 import Uploader from "./profile-components/profilePicUploader";
 import Profile from "./profile-components/profile";
 import OtherProfile from "./profile-components/otherProfile";
 import FindPeople from "./findPeople";
 import FriendsAndRequests from "./profile-components/friendsAndRequests";
+import { receiveFriendsAndRequests } from "./redux/friends_and_requests/slice";
 
 export default function App(props) {
     const { userId } = props;
     const [error, setError] = useState();
     const [uploaderIsVisible, setUploaderIsVisible] = useState(false);
     const [userData, setUserData] = useState({});
+    const dispatch = useDispatch();
 
     function toggleUploader() {
         setUploaderIsVisible(!uploaderIsVisible);
@@ -30,11 +33,25 @@ export default function App(props) {
             .then((data) => data.json())
             .then((data) => {
                 if (data.success) {
-                    setUserData(data);
+                    return setUserData(data);
                 } else {
                     setError(true);
                 }
-            });
+            })
+            .then(() => {
+                return fetch(`/api/get-friends-and-requests`);
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.success) {
+                    dispatch(
+                        receiveFriendsAndRequests(data.friendsAndRequests)
+                    );
+                } else {
+                    setError(true);
+                }
+            })
+            .catch(() => setError(true));
     }, []);
 
     return (

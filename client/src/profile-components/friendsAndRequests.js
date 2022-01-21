@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
-    receiveFriendsAndRequests,
     acceptFriendRequest,
     rejectRequestOrEndFriendship,
 } from "../redux/friends_and_requests/slice";
@@ -21,20 +20,6 @@ export default function FriendsAndRequests() {
                 (friendship) => !friendship.accepted
             )
     );
-
-    useEffect(() => {
-        fetch(`/api/get-friends-and-requests`)
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.success) {
-                    dispatch(
-                        receiveFriendsAndRequests(data.friendsAndRequests)
-                    );
-                } else {
-                    setError(true);
-                }
-            });
-    }, []);
 
     function handleAccept(id) {
         fetch(`/api/friend/accept/${id}`, {
