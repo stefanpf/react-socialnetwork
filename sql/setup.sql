@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS password_reset_codes;
 DROP TABLE IF EXISTS friendships;
+DROP TABLE IF EXISTS wallposts;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -10,6 +11,14 @@ CREATE TABLE users (
         password VARCHAR NOT NULL,
         image_url TEXT,
         bio TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE wallposts (
+        id SERIAL PRIMARY KEY,
+        owner_id INT REFERENCES users(id) NOT NULL,
+        author_id INT REFERENCES users(id) NOT NULL,
+        post TEXT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

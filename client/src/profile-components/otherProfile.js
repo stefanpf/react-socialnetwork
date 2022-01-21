@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router";
 import { useSelector } from "react-redux";
+import ProfilePic from "./profilePic";
 import FriendButton from "./friendButton";
 import FriendList from "./friendList";
+import Wall from "./wall";
 
 export default function OtherProfile(props) {
     const { userId } = props;
@@ -42,10 +44,11 @@ export default function OtherProfile(props) {
             {error && <h2>Oops, something went wrong...</h2>}
             {userData && (
                 <div>
-                    Information about the other user goes here:
-                    <div>
-                        <img src={userData.imageUrl} />
-                    </div>
+                    <ProfilePic
+                        imageUrl={userData.imageUrl}
+                        className="profile-avatar"
+                        toggleUploaderFunc={() => {}}
+                    />
                     <div>
                         {userData.first} {userData.last}
                     </div>
@@ -61,6 +64,8 @@ export default function OtherProfile(props) {
                 <>
                     <h2>These are their friends:</h2>
                     <FriendList id={id} />
+                    <hr />
+                    <Wall authorId={userId} id={id} />
                 </>
             )}
         </>

@@ -6,6 +6,7 @@ const authRouter = require("./routers/auth-router");
 const friendshipRouter = require("./routers/friendship-router");
 const resetPasswordRouter = require("./routers/reset-password-router");
 const userRouter = require("./routers/user-router");
+const wallRouter = require("./routers/wall-router");
 const app = express();
 const PORT = 3001;
 
@@ -36,6 +37,7 @@ app.use(authRouter);
 app.use(friendshipRouter);
 app.use(resetPasswordRouter);
 app.use(userRouter);
+app.use(wallRouter);
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });

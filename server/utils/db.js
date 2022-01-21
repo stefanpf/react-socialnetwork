@@ -140,6 +140,28 @@ function getFriendsAndRequestsByUserId(userId) {
     return db.query(q, params);
 }
 
+function addWallPost(owner_id, author_id, post) {
+    const q = `INSERT INTO wallposts (owner_id, author_id, post)
+            VALUES ($1, $2, $3)
+            RETURNING id AS post_id,
+            (SELECT id FROM users WHERE id = author_id),
+            (SELECT first FROM users WHERE id = author_id),
+            (SELECT last FROM users WHERE id = author_id),
+            created_at;`;
+    const params = [owner_id, author_id, post];
+    return db.query(q, params);
+}
+
+function getWallPosts(userId) {
+    const q = `SELECT users.id, users.first, users.last, post, wallposts.created_at, wallposts.id AS post_id
+            FROM wallposts
+            JOIN users ON author_id = users.id
+            WHERE owner_id = $1
+            ORDER BY created_at DESC;`;
+    const params = [userId];
+    return db.query(q, params);
+}
+
 module.exports = {
     addUser,
     getUserByEmail,
@@ -157,4 +179,6 @@ module.exports = {
     acceptFriendRequest,
     cancelFriendRequestOrEndFriendShip,
     getFriendsAndRequestsByUserId,
+    addWallPost,
+    getWallPosts,
 };
