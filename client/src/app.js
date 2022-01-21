@@ -39,7 +39,7 @@ export default function App(props) {
                 }
             })
             .then(() => {
-                return fetch(`/api/get-friends-and-requests`);
+                return fetch(`/api/get-friends/${userId}`);
             })
             .then((res) => res.json())
             .then((data) => {

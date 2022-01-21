@@ -11,7 +11,10 @@ export default function FriendList(props) {
             .then((res) => res.json())
             .then((data) => {
                 if (data.success) {
-                    setFriends(data.friends);
+                    const friends = data.friendsAndRequests.filter(
+                        (friend) => friend.accepted
+                    );
+                    setFriends(friends);
                 } else {
                     setError(true);
                 }

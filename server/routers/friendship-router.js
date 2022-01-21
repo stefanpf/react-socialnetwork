@@ -54,26 +54,14 @@ friendshipRouter.post("/api/friend/accept/:id", (req, res) => {
         });
 });
 
-friendshipRouter.get("/api/get-friends-and-requests", (req, res) => {
-    const { userId } = req.session;
-    db.getFriendsAndRequestsByUserId(userId)
+friendshipRouter.get("/api/get-friends/:id", (req, res) => {
+    const { id } = req.params;
+    db.getFriendsAndRequestsByUserId(id)
         .then(({ rows }) => {
             res.json({ friendsAndRequests: rows, success: true });
         })
         .catch((err) => {
             console.log("Err in getFriendsAndRequestsByUserId:", err);
-            res.json({ success: false });
-        });
-});
-
-friendshipRouter.get("/api/get-friends/:id", (req, res) => {
-    const { id } = req.params;
-    db.getFriendsByUserId(id)
-        .then(({ rows }) => {
-            res.json({ friends: rows, success: true });
-        })
-        .catch((err) => {
-            console.log("Err in getFriendsByUserId:", err);
             res.json({ success: false });
         });
 });
