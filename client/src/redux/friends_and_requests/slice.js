@@ -37,9 +37,16 @@ export function rejectRequestOrEndFriendship(id) {
     };
 }
 
-export function receiveFriendsAndRequests(friendsAndRequests) {
-    return {
-        type: "friendsAndRequests/received",
-        payload: { friendsAndRequests },
+export function receiveFriendsAndRequests(id) {
+    return async (dispatch) => {
+        const data = await fetch(`/api/get-friends/${id}`).then((res) =>
+            res.json()
+        );
+        dispatch({
+            type: "friendsAndRequests/received",
+            payload: {
+                friendsAndRequests: data.friendsAndRequests,
+            },
+        });
     };
 }

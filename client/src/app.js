@@ -39,17 +39,7 @@ export default function App(props) {
                 }
             })
             .then(() => {
-                return fetch(`/api/get-friends/${userId}`);
-            })
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.success) {
-                    dispatch(
-                        receiveFriendsAndRequests(data.friendsAndRequests)
-                    );
-                } else {
-                    setError(true);
-                }
+                dispatch(receiveFriendsAndRequests(userId));
             })
             .catch(() => setError(true));
     }, []);
