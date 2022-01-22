@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import WallPost from "./wallPost";
 
 export default function Wall(props) {
     const { id, authorId } = props;
@@ -58,15 +58,14 @@ export default function Wall(props) {
             {wallPosts &&
                 wallPosts.map((wallPost) => {
                     return (
-                        <div key={wallPost.post_id} className="wall-post">
-                            <div>
-                                {wallPost.post} - posted by{" "}
-                                <Link to={`/user/${wallPost.id}`}>
-                                    {wallPost.first} {wallPost.last}
-                                </Link>{" "}
-                                at {wallPost.created_at}
-                            </div>
-                        </div>
+                        <WallPost
+                            key={wallPost.post_id}
+                            post={wallPost.post}
+                            author={wallPost.id}
+                            first={wallPost.first}
+                            last={wallPost.last}
+                            createdAt={wallPost.created_at}
+                        />
                     );
                 })}
         </>

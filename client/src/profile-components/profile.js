@@ -1,7 +1,7 @@
 import ProfilePic from "./profilePic";
 import BioEditor from "./bioEditor";
 import FriendList from "./friendList";
-import Wall from "./wall";
+import Wall from "../wall-components/wall";
 
 export default function Profile(props) {
     const {

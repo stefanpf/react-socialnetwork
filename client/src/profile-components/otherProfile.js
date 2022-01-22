@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import ProfilePic from "./profilePic";
 import FriendButton from "./friendButton";
 import FriendList from "./friendList";
-import Wall from "./wall";
+import Wall from "../wall-components/wall";
 
 export default function OtherProfile(props) {
     const { userId } = props;
