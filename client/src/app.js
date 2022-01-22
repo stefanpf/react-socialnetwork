@@ -61,15 +61,9 @@ export default function App(props) {
                         toggleUploaderFunc={toggleUploader}
                     />
                 )}
-                <section>
-                    <Route path="/findpeople">
-                        <FindPeople />
-                    </Route>
+                <section className="main-container">
                     <Route path="/user/:id">
                         <OtherProfile userId={userId} />
-                    </Route>
-                    <Route path="/friends-and-requests">
-                        <FriendsAndRequests userId={userId} />
                     </Route>
                     <Route exact path="/">
                         <Profile
@@ -81,6 +75,12 @@ export default function App(props) {
                             toggleUploaderFunc={toggleUploader}
                             updateBioFunc={updateBio}
                         />
+                    </Route>
+                    <Route path="/findpeople">
+                        <FindPeople />
+                    </Route>
+                    <Route path="/friends-and-requests">
+                        <FriendsAndRequests userId={userId} />
                     </Route>
                 </section>
             </BrowserRouter>

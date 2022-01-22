@@ -377,3 +377,53 @@ form input:focus {
     font-size: 24px;
     font-weight: 800;
 }
+
+/* FRIEND LIST STYLES */
+/* -------------------*/
+
+.friend-list {
+    border: 2px solid orangered;
+    width: 380px;
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.friend-list-element {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 1px solid blue;
+    margin: 10px;
+    position: relative;
+}
+
+.friend-list-element img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.friend-list-element-name {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+    font-weight: 600;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.friend-list-element:hover .friend-list-element-name {
+    visibility: visible;
+}

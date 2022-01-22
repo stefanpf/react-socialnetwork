@@ -26,19 +26,23 @@ export default function FriendList(props) {
 
     return (
         <>
-            {error && <h2>Oops, something went wrong...</h2>}
-            {friends &&
-                friends.map((friend) => (
-                    <Link key={friend.id} to={`/user/${friend.id}`}>
-                        <div>
-                            <img
-                                src={friend.image_url}
-                                className="search-result-image"
-                            />
-                            {friend.first} {friend.last}
+            <div className="friend-list">
+                {error && <h2>Oops, something went wrong...</h2>}
+                {friends &&
+                    friends.map((friend) => (
+                        <div key={friend.id} className="friend-list-element">
+                            <Link to={`/user/${friend.id}`}>
+                                <img
+                                    src={friend.image_url}
+                                    alt={`${friend.first} ${friend.last}`}
+                                />
+                                <div className="friend-list-element-name">
+                                    {friend.first} {friend.last}
+                                </div>
+                            </Link>
                         </div>
-                    </Link>
-                ))}
+                    ))}
+            </div>
         </>
     );
 }
