@@ -1,16 +1,19 @@
 import { Link } from "react-router-dom";
 
 export default function WallPost(props) {
-    const { post, author, first, last, created_at } = props;
+    const { post, author, first, last, createdAt } = props;
 
     return (
         <div className="wall-post">
-            <div>
-                {post} - posted by{" "}
+            <div className="wall-post-text">{post}</div>
+            <div className="wall-post-author">
+                - posted by{" "}
                 <Link to={`/user/${author}`}>
-                    {first} {last}
+                    <strong>
+                        {first} {last}
+                    </strong>
                 </Link>{" "}
-                at {created_at}
+                at {createdAt}
             </div>
         </div>
     );

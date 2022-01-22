@@ -32,8 +32,7 @@ export default function BioEditor(props) {
 
     return (
         <>
-            <div>
-                <h1>I am the BioEditor Component</h1>
+            <div className="bio-editor">
                 {error && <h2>Oops, something went wrong</h2>}
                 {editMode && (
                     <>
@@ -46,7 +45,7 @@ export default function BioEditor(props) {
                 )}
                 {!editMode && (
                     <>
-                        {bio && <div>{bio}</div>}
+                        {bio && <div className="bio-text">{bio}</div>}
                         <button
                             onClick={() => {
                                 setBioDraft(bio);

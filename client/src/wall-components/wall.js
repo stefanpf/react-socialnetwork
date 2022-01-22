@@ -46,28 +46,29 @@ export default function Wall(props) {
 
     return (
         <>
-            <h2>The Wall</h2>
-            {error && <h2>Oops, something went wrong...</h2>}
-            <div className="form-container">
-                <textarea
-                    placeholder="Type something to post..."
-                    onChange={(e) => setNewPost(e.target.value)}
-                />
-                <button onClick={submit}>Save</button>
+            <div className="wall-container">
+                <div className="form-container">
+                    <textarea
+                        placeholder="Type something to post..."
+                        onChange={(e) => setNewPost(e.target.value)}
+                    />
+                    <button onClick={submit}>Save</button>
+                    {error && <h2>Oops, something went wrong...</h2>}
+                </div>
+                {wallPosts &&
+                    wallPosts.map((wallPost) => {
+                        return (
+                            <WallPost
+                                key={wallPost.post_id}
+                                post={wallPost.post}
+                                author={wallPost.id}
+                                first={wallPost.first}
+                                last={wallPost.last}
+                                createdAt={wallPost.created_at}
+                            />
+                        );
+                    })}
             </div>
-            {wallPosts &&
-                wallPosts.map((wallPost) => {
-                    return (
-                        <WallPost
-                            key={wallPost.post_id}
-                            post={wallPost.post}
-                            author={wallPost.id}
-                            first={wallPost.first}
-                            last={wallPost.last}
-                            createdAt={wallPost.created_at}
-                        />
-                    );
-                })}
         </>
     );
 }

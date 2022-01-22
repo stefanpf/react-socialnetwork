@@ -157,7 +157,7 @@ function getWallPosts(userId) {
             FROM wallposts
             JOIN users ON author_id = users.id
             WHERE owner_id = $1
-            ORDER BY created_at DESC;`;
+            ORDER BY wallposts.id DESC;`;
     const params = [userId];
     return db.query(q, params);
 }

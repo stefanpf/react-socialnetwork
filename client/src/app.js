@@ -62,21 +62,23 @@ export default function App(props) {
                     />
                 )}
                 <section className="main-container">
-                    <Route path="/user/:id">
-                        <OtherProfile userId={userId} />
-                    </Route>
-                    <Route exact path="/">
-                        <Profile
-                            userId={userId}
-                            first={userData.first}
-                            last={userData.last}
-                            bio={userData.bio}
-                            imageUrl={userData.imageUrl}
-                            toggleUploaderFunc={toggleUploader}
-                            updateBioFunc={updateBio}
-                        />
-                    </Route>
-                    <Route path="/findpeople">
+                    <div className="profile">
+                        <Route path="/user/:id">
+                            <OtherProfile userId={userId} />
+                        </Route>
+                        <Route exact path="/">
+                            <Profile
+                                userId={userId}
+                                first={userData.first}
+                                last={userData.last}
+                                bio={userData.bio}
+                                imageUrl={userData.imageUrl}
+                                toggleUploaderFunc={toggleUploader}
+                                updateBioFunc={updateBio}
+                            />
+                        </Route>
+                    </div>
+                    <Route path="/find-people">
                         <FindPeople />
                     </Route>
                     <Route path="/friends-and-requests">

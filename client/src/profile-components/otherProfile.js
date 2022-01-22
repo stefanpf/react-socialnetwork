@@ -40,34 +40,39 @@ export default function OtherProfile(props) {
 
     return (
         <>
-            <h2>This is the Other Profile component for user {id}</h2>
-            {error && <h2>Oops, something went wrong...</h2>}
-            {userData && (
-                <div>
-                    <ProfilePic
-                        imageUrl={userData.imageUrl}
-                        className="profile-avatar"
-                        toggleUploaderFunc={() => {}}
-                    />
-                    <div>
+            <div className="profile-col-left">
+                {userData && (
+                    <h1>
                         {userData.first} {userData.last}
+                    </h1>
+                )}
+                {error && <h2>Oops, something went wrong...</h2>}
+                {userData && (
+                    <div>
+                        <ProfilePic
+                            imageUrl={userData.imageUrl}
+                            className="profile-avatar"
+                            toggleUploaderFunc={() => {}}
+                        />
+                        <div className="bio-text">{userData.bio}</div>
+                        <FriendButton
+                            viewedByThisUser={userId}
+                            visibleOnProfileWithId={id}
+                        />
+                        {loggedInUserAndOtherProfileAreFriends && (
+                            <>
+                                <h2>These are their friends:</h2>
+                                <FriendList id={id} />
+                            </>
+                        )}
                     </div>
-                    <div>{userData.bio}</div>
-                    <FriendButton
-                        viewedByThisUser={userId}
-                        visibleOnProfileWithId={id}
-                    />
-                </div>
-            )}
-
-            {loggedInUserAndOtherProfileAreFriends && (
-                <>
-                    <h2>These are their friends:</h2>
-                    <FriendList id={id} />
-                    <hr />
+                )}
+            </div>
+            <div className="profile-col-right">
+                {loggedInUserAndOtherProfileAreFriends && (
                     <Wall authorId={userId} id={id} />
-                </>
-            )}
+                )}
+            </div>
         </>
     );
 }

@@ -15,22 +15,26 @@ export default function Profile(props) {
     } = props;
     return (
         <>
-            <h1>
-                Hello {first} {last} User {userId}
-            </h1>
-            <ProfilePic
-                imageUrl={imageUrl}
-                toggleUploaderFunc={toggleUploaderFunc}
-                className="profile-avatar"
-            />
-            <BioEditor
-                userId={userId}
-                bio={bio}
-                updateBioFunc={updateBioFunc}
-            />
-            <h2>My Friends:</h2>
-            <FriendList id={userId} />
-            <Wall authorId={userId} id={userId} />
+            <div className="profile-col-left">
+                <h1>
+                    Welcome back, {first} {last}!
+                </h1>
+                <ProfilePic
+                    imageUrl={imageUrl}
+                    toggleUploaderFunc={toggleUploaderFunc}
+                    className="profile-avatar"
+                />
+                <BioEditor
+                    userId={userId}
+                    bio={bio}
+                    updateBioFunc={updateBioFunc}
+                />
+                <h2>My Friends:</h2>
+                <FriendList id={userId} />
+            </div>
+            <div className="profile-col-right">
+                <Wall authorId={userId} id={userId} />
+            </div>
         </>
     );
 }
