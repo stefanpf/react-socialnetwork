@@ -18,7 +18,7 @@ export default function WallPost(props) {
                         {first} {last}
                     </strong>
                 </Link>{" "}
-                at {createdAt}
+                on {createdAt}
             </div>
         </div>
     );
