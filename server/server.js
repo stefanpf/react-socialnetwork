@@ -60,6 +60,7 @@ io.on("connection", (socket) => {
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
+
     db.getLastTenChatMessages()
         .then(({ rows }) => {
             socket.emit("chatMessages", rows);
@@ -67,4 +68,14 @@ io.on("connection", (socket) => {
         .catch((err) => {
             console.log("Err in getLastTenChatMessages:", err);
         });
+
+    socket.on("newChatMessage", (message) => {
+        db.addChatMessage(socket.request.session.userId, message)
+            .then(() => {
+                console.log("added message to db");
+            })
+            .catch((err) => {
+                console.log("Err in addChatMessage:", err);
+            });
+    });
 });

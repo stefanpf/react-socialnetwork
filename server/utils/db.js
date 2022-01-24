@@ -171,6 +171,13 @@ function getLastTenChatMessages() {
                 LIMIT 10;`);
 }
 
+function addChatMessage(userId, message) {
+    const q = `INSERT INTO chat_messages (user_id, message)
+            VALUES ($1, $2);`;
+    const params = [userId, message];
+    return db.query(q, params);
+}
+
 module.exports = {
     addUser,
     getUserByEmail,
@@ -191,4 +198,5 @@ module.exports = {
     addWallPost,
     getWallPosts,
     getLastTenChatMessages,
+    addChatMessage,
 };

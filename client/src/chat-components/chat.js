@@ -1,5 +1,6 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { useSelector } from "react-redux";
+import { socket } from "./socket";
 
 export default function Chat() {
     const chatMessages = useSelector((state) => state && state.chatMessages);
@@ -8,7 +9,7 @@ export default function Chat() {
     const keyCheck = (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
-            console.log("e.target.value", e.target.value);
+            socket.emit("newChatMessage", e.target.value);
             e.target.value = "";
         }
     };
