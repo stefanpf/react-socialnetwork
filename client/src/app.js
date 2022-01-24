@@ -6,6 +6,7 @@ import Uploader from "./profile-components/profilePicUploader";
 import Profile from "./profile-components/profile";
 import OtherProfile from "./profile-components/otherProfile";
 import FindPeople from "./findPeople";
+import Chat from "./chat-components/chat";
 import FriendsAndRequests from "./profile-components/friendsAndRequests";
 import { receiveFriendsAndRequests } from "./redux/friends_and_requests/slice";
 
@@ -83,6 +84,9 @@ export default function App(props) {
                     </Route>
                     <Route path="/friends-and-requests">
                         <FriendsAndRequests userId={userId} />
+                    </Route>
+                    <Route path="/chat">
+                        <Chat />
                     </Route>
                 </section>
             </BrowserRouter>

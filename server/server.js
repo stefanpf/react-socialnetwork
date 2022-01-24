@@ -1,13 +1,26 @@
 const express = require("express");
 const compression = require("compression");
 const cookieSession = require("cookie-session");
+const cookieSessionMiddleware = cookieSession({
+    secret:
+        process.env.SESSION_SECRET ||
+        require("../secrets").COOKIE_SESSION_SECRET,
+    maxAge: 1000 * 60 * 60 * 24 * 14,
+    sameSite: true,
+});
 const path = require("path");
 const authRouter = require("./routers/auth-router");
 const friendshipRouter = require("./routers/friendship-router");
 const resetPasswordRouter = require("./routers/reset-password-router");
 const userRouter = require("./routers/user-router");
 const wallRouter = require("./routers/wall-router");
+const db = require("./utils/db");
 const app = express();
+const server = require("http").Server(app);
+const io = require("socket.io")(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+});
 const PORT = 3001;
 
 // MIDDLEWARE
@@ -19,15 +32,10 @@ if (process.env.NODE_ENV == "production") {
         res.redirect(`https://${req.hostname}${req.url}`);
     });
 }
-app.use(
-    cookieSession({
-        secret:
-            process.env.SESSION_SECRET ||
-            require("../secrets").COOKIE_SESSION_SECRET,
-        maxAge: 1000 * 60 * 60 * 24 * 14,
-        sameSite: true,
-    })
-);
+app.use(cookieSessionMiddleware);
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 app.use(compression());
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use(express.json());
@@ -43,6 +51,20 @@ app.get("*", function (req, res) {
 });
 
 // START SERVER
-app.listen(process.env.PORT || PORT, function () {
+server.listen(process.env.PORT || PORT, function () {
     console.log("I'm listening.");
+});
+
+// WEBSOCKET SETUP
+io.on("connection", (socket) => {
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+    db.getLastTenChatMessages()
+        .then(({ rows }) => {
+            socket.emit("chatMessages", rows);
+        })
+        .catch((err) => {
+            console.log("Err in getLastTenChatMessages:", err);
+        });
 });

@@ -485,3 +485,14 @@ form input:focus {
 .bio-text {
     font-size: 32px;
 }
+
+/* CHAT STYLES */
+/* ----------- */
+.chat-container {
+    border: 2px solid red;
+    border-radius: 8px;
+    height: 50vh;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column-reverse;
+}

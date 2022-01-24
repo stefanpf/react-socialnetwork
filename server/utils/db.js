@@ -162,6 +162,15 @@ function getWallPosts(userId) {
     return db.query(q, params);
 }
 
+function getLastTenChatMessages() {
+    return db.query(`SELECT m.id, m.user_id, m.message, m.created_at, u.first, u.last, u.image_url
+                FROM chat_messages AS m
+                JOIN users AS u
+                ON m.user_id = u.id
+                ORDER BY m.id DESC
+                LIMIT 10;`);
+}
+
 module.exports = {
     addUser,
     getUserByEmail,
@@ -181,4 +190,5 @@ module.exports = {
     getFriendsAndRequestsByUserId,
     addWallPost,
     getWallPosts,
+    getLastTenChatMessages,
 };

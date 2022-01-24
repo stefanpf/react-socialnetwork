@@ -4,9 +4,11 @@ import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import * as immutableState from "redux-immutable-state-invariant";
 import thunk from "redux-thunk";
+
 import reducer from "./redux/reducer.js";
 import Welcome from "./welcome";
 import App from "./app";
+import { init } from "./chat-components/socket";
 
 const store = createStore(
     reducer,
@@ -19,6 +21,7 @@ fetch("/api/user/id")
         if (!data.userId) {
             ReactDOM.render(<Welcome />, document.querySelector("main"));
         } else {
+            init(store);
             ReactDOM.render(
                 <Provider store={store}>
                     <App userId={data.userId} />
