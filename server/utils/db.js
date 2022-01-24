@@ -173,7 +173,8 @@ function getLastTenChatMessages() {
 
 function addChatMessage(userId, message) {
     const q = `INSERT INTO chat_messages (user_id, message)
-            VALUES ($1, $2);`;
+            VALUES ($1, $2)
+            RETURNING id, created_at;`;
     const params = [userId, message];
     return db.query(q, params);
 }

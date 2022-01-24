@@ -15,6 +15,7 @@ export default function Header(props) {
                     className="navbar-avatar"
                 />
                 <div>
+                    <Link to="/chat">Chat</Link> |&nbsp;
                     <Link to="/friends-and-requests">My Friends</Link> |&nbsp;
                     <Link to="/find-people">Find People</Link> |&nbsp;
                     <a href="/logout">Logout</a>

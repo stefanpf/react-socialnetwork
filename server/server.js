@@ -70,9 +70,17 @@ io.on("connection", (socket) => {
         });
 
     socket.on("newChatMessage", (message) => {
-        db.addChatMessage(socket.request.session.userId, message)
-            .then(() => {
-                console.log("added message to db");
+        let newChatMessage = { userId: socket.request.session.userId, message };
+        db.addChatMessage(newChatMessage.userId, newChatMessage.message)
+            .then(({ rows }) => {
+                const { id, created_at } = rows[0];
+                newChatMessage = { ...newChatMessage, id, created_at };
+                return db.getUserById(newChatMessage.userId);
+            })
+            .then(({ rows }) => {
+                const { first, last, image_url } = rows[0];
+                newChatMessage = { ...newChatMessage, first, last, image_url };
+                io.emit("chatMessage", newChatMessage);
             })
             .catch((err) => {
                 console.log("Err in addChatMessage:", err);

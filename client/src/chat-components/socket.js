@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 import {
     chatMessagesReceived,
-    // chatMessageReceived,
+    chatMessageReceived,
 } from "../redux/messages/slice.js";
 
 export let socket;
@@ -14,8 +14,8 @@ export const init = (store) => {
             store.dispatch(chatMessagesReceived(msgs))
         );
 
-        // socket.on("chatMessage", (msg) =>
-        //     store.dispatch(chatMessageReceived(msg))
-        // );
+        socket.on("chatMessage", (msg) =>
+            store.dispatch(chatMessageReceived(msg))
+        );
     }
 };
