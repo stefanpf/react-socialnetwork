@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import WallPost from "./wallPost";
 
 export default function Wall(props) {
     const { id, authorId } = props;
+    const textareaRef = useRef();
     const [wallPosts, setWallPosts] = useState([]);
     const [newPost, setNewPost] = useState();
     const [error, setError] = useState(false);
@@ -22,6 +23,13 @@ export default function Wall(props) {
             });
     }, []);
 
+    function keyCheck(e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            submit();
+        }
+    }
+
     function submit() {
         fetch(`/api/wall/${id}`, {
             method: "POST",
@@ -33,6 +41,7 @@ export default function Wall(props) {
             .then((res) => res.json())
             .then((data) => {
                 if (data.success) {
+                    textareaRef.current.value = "";
                     setWallPosts([
                         { ...data.postData, post: newPost },
                         ...wallPosts,
@@ -50,9 +59,11 @@ export default function Wall(props) {
                 <div className="form-container">
                     <textarea
                         placeholder="Type something to post..."
+                        onKeyDown={keyCheck}
                         onChange={(e) => setNewPost(e.target.value)}
+                        ref={textareaRef}
                     />
-                    <button onClick={submit}>Save</button>
+                    <button onClick={submit}>Post</button>
                     {error && <h2>Oops, something went wrong...</h2>}
                 </div>
                 {wallPosts &&
