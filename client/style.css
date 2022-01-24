@@ -154,7 +154,7 @@ body {
 }
 
 body {
-    background-color: hotpink;
+    background-color: rgb(70, 68, 68);
     font-family: "Avenir", Arial, sans-serif;
     color: white;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -162,7 +162,6 @@ body {
 
 header {
     height: 100px;
-    border: 2px solid blue;
     padding: 2px 46px 0px 46px;
     font-size: 24px;
     font-weight: 800;
@@ -482,17 +481,73 @@ form input:focus {
 .bio-editor {
     padding: 8px 10px 8px 10px;
 }
+
 .bio-text {
     font-size: 32px;
 }
 
 /* CHAT STYLES */
 /* ----------- */
+.chat-wrapper {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .chat-container {
     border: 2px solid red;
     border-radius: 8px;
     height: 50vh;
+    width: 50vw;
     overflow-y: scroll;
     display: flex;
     flex-direction: column-reverse;
+}
+
+.chat-message {
+    border-bottom: 1px solid white;
+    margin: 5px 0px 5px 0px;
+    padding: 8px;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+}
+
+.own-chat-message {
+    text-align: right;
+    justify-content: flex-end;
+}
+
+.other-chat-message {
+    color: black;
+}
+
+.chat-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.chat-message-timestamp {
+    font-size: 14px;
+}
+
+.own-chat-message .chat-message-avatar {
+    margin-left: 12px;
+}
+
+.other-chat-message .chat-message-avatar {
+    margin-right: 12px;
+}
+
+.own-chat-message .chat-message-timestamp {
+    justify-self: flex-start;
+    align-self: flex-end;
+}
+
+.other-chat-message .chat-message-timestamp {
+    justify-self: flex-start;
+    align-self: flex-end;
 }

@@ -70,12 +70,15 @@ io.on("connection", (socket) => {
         });
 
     socket.on("newChatMessage", (message) => {
-        let newChatMessage = { userId: socket.request.session.userId, message };
-        db.addChatMessage(newChatMessage.userId, newChatMessage.message)
+        let newChatMessage = {
+            user_id: socket.request.session.userId,
+            message,
+        };
+        db.addChatMessage(newChatMessage.user_id, newChatMessage.message)
             .then(({ rows }) => {
                 const { id, created_at } = rows[0];
                 newChatMessage = { ...newChatMessage, id, created_at };
-                return db.getUserById(newChatMessage.userId);
+                return db.getUserById(newChatMessage.user_id);
             })
             .then(({ rows }) => {
                 const { first, last, image_url } = rows[0];

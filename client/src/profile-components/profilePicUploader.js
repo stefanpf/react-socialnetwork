@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { editImageUrl } from "../redux/user_data/slice";
 
 export default function Uploader(props) {
-    const { userId, addImageUrlFunc, toggleUploaderFunc } = props;
+    const { toggleUploaderFunc } = props;
+    const userData = useSelector((state) => state && state.userData);
+    const dispatch = useDispatch();
     const [spinnerIsVisible, setSpinnerIsVisible] = useState(false);
     const [file, setFile] = useState();
     const [error, setError] = useState(false);
@@ -19,13 +23,14 @@ export default function Uploader(props) {
         toggleSpinnerVisibility();
         const fd = new FormData();
         fd.append("file", file);
-        fetch(`/api/user/upload/${userId}`, {
+        fetch(`/api/user/upload/${userData.userId}`, {
             method: "POST",
             body: fd,
         })
             .then((res) => res.json())
             .then((data) => {
-                addImageUrlFunc(data.imageUrl);
+                dispatch(editImageUrl(data.imageUrl));
+                // addImageUrlFunc(data.imageUrl);
                 toggleSpinnerVisibility();
                 toggleUploaderFunc();
             })

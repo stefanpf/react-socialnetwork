@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { editUserBio } from "../redux/user_data/slice";
 
-export default function BioEditor(props) {
-    const { userId, bio, updateBioFunc } = props;
+export default function BioEditor() {
+    const userData = useSelector((state) => state && state.userData);
+    const dispatch = useDispatch();
     const [editMode, setEditMode] = useState(false);
     const [bioDraft, setBioDraft] = useState();
     const [error, setError] = useState(false);
@@ -11,8 +14,8 @@ export default function BioEditor(props) {
     }
 
     function submit() {
-        if (bioDraft != bio) {
-            fetch(`/api/user/profile/${userId}`, {
+        if (bioDraft != userData.bio) {
+            fetch(`/api/user/profile/${userData.userId}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -21,7 +24,7 @@ export default function BioEditor(props) {
             })
                 .then((res) => res.json())
                 .then(() => {
-                    updateBioFunc(bioDraft);
+                    dispatch(editUserBio(bioDraft));
                     toggleEditMode();
                 })
                 .catch(() => setError(true));
@@ -37,7 +40,7 @@ export default function BioEditor(props) {
                 {editMode && (
                     <>
                         <textarea
-                            defaultValue={bio}
+                            defaultValue={userData.bio}
                             onChange={(e) => setBioDraft(e.target.value)}
                         />
                         <button onClick={submit}>Save</button>
@@ -45,14 +48,16 @@ export default function BioEditor(props) {
                 )}
                 {!editMode && (
                     <>
-                        {bio && <div className="bio-text">{bio}</div>}
+                        {userData.bio && (
+                            <div className="bio-text">{userData.bio}</div>
+                        )}
                         <button
                             onClick={() => {
-                                setBioDraft(bio);
+                                setBioDraft(userData.bio);
                                 toggleEditMode();
                             }}
                         >
-                            {bio ? "Edit" : "Add"}
+                            {userData.bio ? "Edit" : "Add"}
                         </button>
                     </>
                 )}

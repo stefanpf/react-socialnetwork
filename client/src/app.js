@@ -9,24 +9,16 @@ import FindPeople from "./findPeople";
 import Chat from "./chat-components/chat";
 import FriendsAndRequests from "./profile-components/friendsAndRequests";
 import { receiveFriendsAndRequests } from "./redux/friends_and_requests/slice";
+import { receiveUserData } from "./redux/user_data/slice";
 
 export default function App(props) {
     const { userId } = props;
     const [error, setError] = useState();
     const [uploaderIsVisible, setUploaderIsVisible] = useState(false);
-    const [userData, setUserData] = useState({});
     const dispatch = useDispatch();
 
     function toggleUploader() {
         setUploaderIsVisible(!uploaderIsVisible);
-    }
-
-    function addNewImageUrlToState(imageUrl) {
-        setUserData({ ...userData, imageUrl });
-    }
-
-    function updateBio(bio) {
-        setUserData({ ...userData, bio });
     }
 
     useEffect(() => {
@@ -34,7 +26,7 @@ export default function App(props) {
             .then((data) => data.json())
             .then((data) => {
                 if (data.success) {
-                    return setUserData(data);
+                    dispatch(receiveUserData({ ...data.userData, userId }));
                 } else {
                     setError(true);
                 }
@@ -48,19 +40,10 @@ export default function App(props) {
     return (
         <>
             <BrowserRouter>
-                <Header
-                    first={userData.first}
-                    last={userData.last}
-                    imageUrl={userData.imageUrl}
-                    toggleUploader={toggleUploader}
-                />
+                <Header toggleUploader={toggleUploader} />
                 {error && <h2>Uh oh, something went wrong...</h2>}
                 {uploaderIsVisible && (
-                    <Uploader
-                        userId={userId}
-                        addImageUrlFunc={addNewImageUrlToState}
-                        toggleUploaderFunc={toggleUploader}
-                    />
+                    <Uploader toggleUploaderFunc={toggleUploader} />
                 )}
                 <section className="main-container">
                     <div className="profile">
@@ -68,15 +51,7 @@ export default function App(props) {
                             <OtherProfile userId={userId} />
                         </Route>
                         <Route exact path="/">
-                            <Profile
-                                userId={userId}
-                                first={userData.first}
-                                last={userData.last}
-                                bio={userData.bio}
-                                imageUrl={userData.imageUrl}
-                                toggleUploaderFunc={toggleUploader}
-                                updateBioFunc={updateBio}
-                            />
+                            <Profile toggleUploaderFunc={toggleUploader} />
                         </Route>
                     </div>
                     <Route path="/find-people">
@@ -86,7 +61,7 @@ export default function App(props) {
                         <FriendsAndRequests userId={userId} />
                     </Route>
                     <Route path="/chat">
-                        <Chat />
+                        <Chat userId={userId} />
                     </Route>
                 </section>
             </BrowserRouter>

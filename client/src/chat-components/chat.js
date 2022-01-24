@@ -1,8 +1,10 @@
 import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { socket } from "./socket";
+import ChatMessage from "./chatMessage";
 
-export default function Chat() {
+export default function Chat(props) {
+    const { userId } = props;
     const chatMessages = useSelector((state) => state && state.chatMessages);
     const chatContainerRef = useRef();
 
@@ -15,16 +17,16 @@ export default function Chat() {
     };
 
     return (
-        <div>
-            <h1>This is the Chat...</h1>
+        <div className="chat-wrapper">
             <div ref={chatContainerRef} className="chat-container">
                 {chatMessages &&
                     chatMessages.map((msg) => {
                         return (
-                            <div key={msg.id}>
-                                {msg.message} by {msg.first} {msg.last} at{" "}
-                                {msg.created_at}
-                            </div>
+                            <ChatMessage
+                                key={msg.id}
+                                message={msg}
+                                userId={userId}
+                            />
                         );
                     })}
             </div>

@@ -10,11 +10,13 @@ userRouter.get("/api/user/:id", (req, res) => {
             if (rows) {
                 res.json({
                     success: true,
-                    first: rows[0].first,
-                    last: rows[0].last,
-                    imageUrl: rows[0].image_url,
-                    email: rows[0].email,
-                    bio: rows[0].bio,
+                    userData: {
+                        first: rows[0].first,
+                        last: rows[0].last,
+                        imageUrl: rows[0].image_url,
+                        email: rows[0].email,
+                        bio: rows[0].bio,
+                    },
                 });
             } else {
                 res.json({ success: false });

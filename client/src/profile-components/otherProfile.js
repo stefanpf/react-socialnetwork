@@ -29,7 +29,7 @@ export default function OtherProfile(props) {
                 .then((res) => res.json())
                 .then((data) => {
                     if (data.success) {
-                        setUserData(data);
+                        setUserData(data.userData);
                     } else {
                         setError(true);
                     }
@@ -51,6 +51,8 @@ export default function OtherProfile(props) {
                     <div>
                         <ProfilePic
                             imageUrl={userData.imageUrl}
+                            first={userData.first}
+                            last={userData.last}
                             className="profile-avatar"
                             toggleUploaderFunc={() => {}}
                         />

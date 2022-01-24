@@ -1,40 +1,36 @@
+import { useSelector } from "react-redux";
 import ProfilePic from "./profilePic";
 import BioEditor from "./bioEditor";
 import FriendList from "./friendList";
 import Wall from "../wall-components/wall";
 
 export default function Profile(props) {
-    const {
-        userId,
-        first,
-        last,
-        imageUrl,
-        bio,
-        toggleUploaderFunc,
-        updateBioFunc,
-    } = props;
+    const userData = useSelector((state) => state && state.userData);
+    const { toggleUploaderFunc } = props;
     return (
         <>
-            <div className="profile-col-left">
-                <h1>
-                    Welcome back, {first} {last}!
-                </h1>
-                <ProfilePic
-                    imageUrl={imageUrl}
-                    toggleUploaderFunc={toggleUploaderFunc}
-                    className="profile-avatar"
-                />
-                <BioEditor
-                    userId={userId}
-                    bio={bio}
-                    updateBioFunc={updateBioFunc}
-                />
-                <h2>My Friends:</h2>
-                <FriendList id={userId} />
-            </div>
-            <div className="profile-col-right">
-                <Wall authorId={userId} id={userId} />
-            </div>
+            {userData && (
+                <>
+                    <div className="profile-col-left">
+                        <h1>
+                            Welcome back, {userData.first} {userData.last}!
+                        </h1>
+                        <ProfilePic
+                            imageUrl={userData.imageUrl}
+                            first={userData.first}
+                            last={userData.last}
+                            toggleUploaderFunc={toggleUploaderFunc}
+                            className="profile-avatar"
+                        />
+                        <BioEditor />
+                        <h2>My Friends:</h2>
+                        <FriendList id={userData.userId} />
+                    </div>
+                    <div className="profile-col-right">
+                        <Wall authorId={userData.userId} id={userData.userId} />
+                    </div>
+                </>
+            )}
         </>
     );
 }

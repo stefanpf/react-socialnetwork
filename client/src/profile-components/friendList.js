@@ -22,7 +22,7 @@ export default function FriendList(props) {
             .catch(() => {
                 setError(true);
             });
-    }, []);
+    }, [id]);
 
     return (
         <>

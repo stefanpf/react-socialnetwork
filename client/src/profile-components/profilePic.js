@@ -1,20 +1,16 @@
-export default function profilePic({
-    first,
-    last,
-    imageUrl,
-    toggleUploaderFunc,
-    className,
-}) {
-    imageUrl = imageUrl || "/img/default-profile.jpg";
+export default function profilePic(props) {
+    const { imageUrl, first, last, toggleUploaderFunc, className } = props;
 
     return (
-        <img
-            onClick={() => {
-                toggleUploaderFunc();
-            }}
-            src={imageUrl}
-            alt={`${first} ${last}`}
-            className={className}
-        />
+        <>
+            <img
+                onClick={() => {
+                    toggleUploaderFunc();
+                }}
+                src={imageUrl || "/img/default-profile.jpg"}
+                alt={`${first} ${last}`}
+                className={className}
+            />
+        </>
     );
 }
