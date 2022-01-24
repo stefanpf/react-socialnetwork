@@ -384,13 +384,16 @@ form input:focus {
     align-items: center;
     overflow-x: hidden;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-    cursor: pointer;
 }
 
+.search-result:hover {
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
+}
 .search-result-image img {
     height: 200px;
     width: 200px;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .search-result-text {

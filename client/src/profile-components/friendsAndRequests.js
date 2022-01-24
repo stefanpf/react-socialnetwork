@@ -58,37 +58,52 @@ export default function FriendsAndRequests() {
 
     return (
         <>
-            <h1>Here goes the friends and pending requests:</h1>
             {error && <h2>Oops, something went wrong...</h2>}
             <h2>Pending Requests:</h2>
-            {friendRequests &&
-                friendRequests.map((friendRequest) => {
-                    return (
-                        <div key={friendRequest.id}>
-                            <img src={friendRequest.image_url} />
-                            {friendRequest.first} {friendRequest.last}
-                            <button
-                                onClick={() => handleAccept(friendRequest.id)}
+            <div className="search-results-wrapper">
+                {friendRequests &&
+                    friendRequests.map((friendRequest) => {
+                        return (
+                            <div
+                                key={friendRequest.id}
+                                className="search-result"
                             >
-                                Accept
-                            </button>
-                            <button
-                                onClick={() =>
-                                    handleRejectOrCancel(friendRequest.id)
-                                }
-                            >
-                                Reject
-                            </button>
-                        </div>
-                    );
-                })}
+                                <Link to={`/user/${friendRequest.id}`}>
+                                    <div className="search-result-image">
+                                        <img src={friendRequest.image_url} />
+                                    </div>
+                                </Link>
+                                {friendRequest.first} {friendRequest.last}
+                                <button
+                                    onClick={() =>
+                                        handleAccept(friendRequest.id)
+                                    }
+                                >
+                                    Accept
+                                </button>
+                                <button
+                                    onClick={() =>
+                                        handleRejectOrCancel(friendRequest.id)
+                                    }
+                                >
+                                    Reject
+                                </button>
+                            </div>
+                        );
+                    })}
+            </div>
+
             <h2>My Friends:</h2>
-            {friends &&
-                friends.map((friend) => {
-                    return (
-                        <Link key={friend.id} to={`/user/${friend.id}`}>
-                            <div>
-                                <img src={friend.image_url} />
+            <div className="search-results-wrapper">
+                {friends &&
+                    friends.map((friend) => {
+                        return (
+                            <div key={friend.id} className="search-result">
+                                <Link to={`/user/${friend.id}`}>
+                                    <div className="search-result-image">
+                                        <img src={friend.image_url} />
+                                    </div>
+                                </Link>
                                 {friend.first} {friend.last}
                                 <button
                                     onClick={() =>
@@ -98,9 +113,9 @@ export default function FriendsAndRequests() {
                                     End Friendship
                                 </button>
                             </div>
-                        </Link>
-                    );
-                })}
+                        );
+                    })}
+            </div>
         </>
     );
 }
