@@ -7,7 +7,7 @@ export default function WallPostLikes(props) {
     const { userId, first, last } = useSelector(
         (state) => state.userData && state.userData
     );
-    const [likes, setLikes] = useState(null);
+    const [likes, setLikes] = useState([]);
     const [likedByLoggedInUser, setLikedByLoggedInUser] = useState(false);
     const [error, setError] = useState(false);
 
@@ -33,7 +33,7 @@ export default function WallPostLikes(props) {
             .catch(() => {
                 setError(true);
             });
-    }, []);
+    }, [postId]);
 
     const handleLike = () => {
         fetch(`/api/wall/post/${postId}/like`, {
@@ -72,7 +72,9 @@ export default function WallPostLikes(props) {
                 <div className="wall-posts-likes-liked-by">
                     Liked by&nbsp;
                     {likes.map((like, index) => {
-                        if (likes.length == 1) {
+                        if (likes.length == 0) {
+                            return <div>nobody yet :/.</div>;
+                        } else if (likes.length == 1) {
                             return (
                                 <div key={like.id}>
                                     {like.liked_by == userId ? (

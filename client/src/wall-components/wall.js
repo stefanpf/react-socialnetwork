@@ -57,6 +57,7 @@ export default function Wall(props) {
     return (
         <>
             <div className="wall-container">
+                <h2>The Wall</h2>
                 {(ownWall || loggedInUserAndOtherProfileAreFriends) && (
                     <div className="form-container">
                         <textarea
