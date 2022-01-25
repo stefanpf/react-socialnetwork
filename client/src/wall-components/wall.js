@@ -22,7 +22,7 @@ export default function Wall(props) {
             .catch(() => {
                 setError(true);
             });
-    }, []);
+    }, [id]);
 
     function keyCheck(e) {
         if (e.key === "Enter") {
