@@ -21,12 +21,11 @@ module.exports.upload = (req, res, next) => {
         return res.sendStatus(500);
     }
     const { filename, mimetype, size, path } = req.file;
-
     const promise = s3
         .putObject({
             Bucket: `${secrets.AWS_S3_BUCKET}`,
             ACL: "public-read",
-            Key: filename,
+            Key: `${req.params.id}/${filename}`,
             Body: fs.createReadStream(path),
             ContentType: mimetype,
             ContentLength: size,

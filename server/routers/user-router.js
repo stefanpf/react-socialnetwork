@@ -36,7 +36,7 @@ userRouter.post(
         if (req.file) {
             let newImage = {
                 userId: req.params.id,
-                url: `https://spsocialeu.s3.eu-central-1.amazonaws.com/${req.file.filename}`,
+                url: `https://spsocialeu.s3.eu-central-1.amazonaws.com/${req.params.id}/${req.file.filename}`,
             };
             db.addImageUrl(newImage.userId, newImage.url)
                 .then(res.json({ imageUrl: newImage.url, success: true }))
