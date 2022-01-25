@@ -479,6 +479,10 @@ form input:focus {
     padding: 0px 0px 0px 12px;
 }
 
+.wall-posts-likes-liked-by {
+    display: flex;
+    flex-wrap: wrap;
+}
 /* USER BIO STYLES*/
 /* ---------------*/
 .bio-editor {

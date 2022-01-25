@@ -45,9 +45,24 @@ wallRouter
     })
     .post((req, res) => {
         console.log("user wants to like post ", req.params.id);
+        db.likeWallPost(req.params.id, req.session.userId)
+            .then(({ rows }) => {
+                res.json({ id: rows[0].id, success: true });
+            })
+            .catch((err) => {
+                console.log("Err in likeWallPost:", err);
+                res.json({ success: false });
+            });
     })
     .delete((req, res) => {
-        console.log("user wants to unlike post ", req.params.id);
+        db.unlikeWallPost(req.params.id, req.session.userId)
+            .then(() => {
+                res.json({ success: true });
+            })
+            .catch((err) => {
+                console.log("Err in unlikeWallPost:", err);
+                res.json({ success: false });
+            });
     });
 
 module.exports = wallRouter;
