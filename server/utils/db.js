@@ -205,6 +205,48 @@ function addChatMessage(userId, message) {
     return db.query(q, params);
 }
 
+function deleteWallPostLikesByUserId(userId) {
+    const q = `DELETE FROM wallposts_likes
+            WHERE liked_by = $1;`;
+    const params = [userId];
+    return db.query(q, params);
+}
+
+function deleteChatMessagesByUserId(userId) {
+    const q = `DELETE FROM chat_messages
+            WHERE user_id = $1;`;
+    const params = [userId];
+    return db.query(q, params);
+}
+
+function deleteWallPostsByUserId(userId) {
+    const q = `DELETE FROM wallposts
+            WHERE owner_id = $1 OR author_id = $1;`;
+    const params = [userId];
+    return db.query(q, params);
+}
+
+function deleteFriendshipsByUserId(userId) {
+    const q = `DELETE FROM friendships
+            WHERE sender_id = $1 OR recipient_id = $1;`;
+    const params = [userId];
+    return db.query(q, params);
+}
+
+function deletePasswordResetCodesByUserId(userId) {
+    const q = `DELETE FROM password_reset_codes
+            WHERE email = (SELECT email FROM users WHERE id = $1);`;
+    const params = [userId];
+    return db.query(q, params);
+}
+
+function deleteUserByUserId(userId) {
+    const q = `DELETE FROM users
+            WHERE id = $1;`;
+    const params = [userId];
+    return db.query(q, params);
+}
+
 module.exports = {
     addUser,
     getUserByEmail,
@@ -229,4 +271,10 @@ module.exports = {
     unlikeWallPost,
     getLastTenChatMessages,
     addChatMessage,
+    deleteWallPostLikesByUserId,
+    deleteChatMessagesByUserId,
+    deleteWallPostsByUserId,
+    deleteFriendshipsByUserId,
+    deletePasswordResetCodesByUserId,
+    deleteUserByUserId,
 };

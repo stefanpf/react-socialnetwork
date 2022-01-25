@@ -8,6 +8,7 @@ import OtherProfile from "./profile-components/otherProfile";
 import FindPeople from "./findPeople";
 import Chat from "./chat-components/chat";
 import FriendsAndRequests from "./profile-components/friendsAndRequests";
+import DeleteAccount from "./profile-components/deleteAccount";
 import { receiveFriendsAndRequests } from "./redux/friends_and_requests/slice";
 import { receiveUserData } from "./redux/user_data/slice";
 
@@ -62,6 +63,9 @@ export default function App(props) {
                     </Route>
                     <Route path="/chat">
                         <Chat userId={userId} />
+                    </Route>
+                    <Route path="/delete-account">
+                        <DeleteAccount userId={userId} />
                     </Route>
                 </section>
             </BrowserRouter>

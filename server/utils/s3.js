@@ -44,5 +44,34 @@ module.exports.upload = (req, res, next) => {
 };
 
 module.exports.remove = (req, res, next) => {
-    console.log("req.params:", req.params);
+    const listPromise = s3
+        .listObjectsV2({
+            Bucket: `${secrets.AWS_S3_BUCKET}`,
+            Prefix: `${req.params.id}/`,
+        })
+        .promise();
+
+    listPromise
+        .then(({ Contents }) => {
+            const newContents = [];
+            Contents.forEach((element) => {
+                newContents.push({ Key: element.Key });
+            });
+            const deletePromise = s3
+                .deleteObjects({
+                    Bucket: `${secrets.AWS_S3_BUCKET}`,
+                    Delete: {
+                        Objects: newContents,
+                    },
+                })
+                .promise();
+            return deletePromise;
+        })
+        .then(() => {
+            next();
+        })
+        .catch((err) => {
+            console.log("Err in s3.deleteObjects:", err);
+            return res.sendStatus(500);
+        });
 };

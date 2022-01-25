@@ -30,15 +30,32 @@ userRouter
             });
     })
     .delete(s3.remove, (req, res) => {
-        console.log(`user ${req.params.id} wants to delete their account`);
-        // DELETE user folder from S3 bucket, deleteObject()
-        // DELETE likes involving user
-        // DELETE chat_messages involving user
-        // DELETE wallposts involving user
-        // DELETE friendships involving user
-        // DELETE user
-        // DELETE session cookie
-        // res.setStatus(200)
+        const userId = req.params.id;
+        console.log(`user ${userId} wants to delete their account`);
+        db.deleteWallPostLikesByUserId(userId)
+            .then(() => {
+                return db.deleteChatMessagesByUserId(userId);
+            })
+            .then(() => {
+                return db.deleteWallPostsByUserId(userId);
+            })
+            .then(() => {
+                return db.deleteFriendshipsByUserId(userId);
+            })
+            .then(() => {
+                return db.deletePasswordResetCodesByUserId(userId);
+            })
+            .then(() => {
+                return db.deleteUserByUserId(userId);
+            })
+            .then(() => {
+                req.session = null;
+                res.json({ success: true });
+            })
+            .catch((err) => {
+                console.log("Err in account deletion:", err);
+                res.json({ success: false });
+            });
     });
 
 userRouter.post(
