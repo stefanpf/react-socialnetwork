@@ -34,7 +34,7 @@ CREATE TABLE wallposts (
 CREATE TABLE wallposts_likes (
         id SERIAL PRIMARY KEY,
         post_id INT REFERENCES wallposts(id) NOT NULL,
-        author_id INT REFERENCES users(id) NOT NULL
+        liked_by INT REFERENCES users(id) NOT NULL
 );
 
 CREATE TABLE friendships( 

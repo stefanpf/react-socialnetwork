@@ -42,3 +42,7 @@ module.exports.upload = (req, res, next) => {
             return res.sendStatus(500);
         });
 };
+
+module.exports.remove = (req, res, next) => {
+    console.log("req.params:", req.params);
+};

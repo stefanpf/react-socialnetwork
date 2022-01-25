@@ -71,9 +71,13 @@ export default function OtherProfile(props) {
                 )}
             </div>
             <div className="profile-col-right">
-                {loggedInUserAndOtherProfileAreFriends && (
-                    <Wall authorId={userId} id={id} />
-                )}
+                <Wall
+                    authorId={userId}
+                    id={id}
+                    loggedInUserAndOtherProfileAreFriends={
+                        loggedInUserAndOtherProfileAreFriends
+                    }
+                />
             </div>
         </>
     );
