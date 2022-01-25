@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
+import WallPostLikes from "./wallPostLikes";
 
 export default function WallPost(props) {
-    const { post, author, first, last } = props;
+    const { post, author, first, last, postId } = props;
     let { createdAt } = props;
     createdAt = new Intl.DateTimeFormat("en-GB", {
         dateStyle: "long",
@@ -20,6 +21,7 @@ export default function WallPost(props) {
                 </Link>{" "}
                 on {createdAt}
             </div>
+            <WallPostLikes postId={postId} />
         </div>
     );
 }

@@ -162,6 +162,32 @@ function getWallPosts(userId) {
     return db.query(q, params);
 }
 
+function getLikesForWallPost(postId) {
+    const q = `SELECT w.id, w.liked_by, u.first, u.last
+            FROM wallposts_likes AS w
+            JOIN users AS u
+            ON w.liked_by = u.id
+            WHERE w.post_id = $1;`;
+    const params = [postId];
+    return db.query(q, params);
+}
+
+function likeWallPost(postId, userId) {
+    const q = `INSERT INTO wallposts_likes (post_id, liked_by)
+            VALUES ($1, $2)
+            RETURNING id;`;
+    const params = [postId, userId];
+    return db.query(q, params);
+}
+
+function unlikeWallPost(postId, userId) {
+    const q = `DELETE FROM wallposts_likes
+            WHERE post_id = $1
+            AND liked_by = $2;`;
+    const params = [postId, userId];
+    return db.query(q, params);
+}
+
 function getLastTenChatMessages() {
     return db.query(`SELECT m.id, m.user_id, m.message, m.created_at, u.first, u.last, u.image_url
                 FROM chat_messages AS m
@@ -198,6 +224,9 @@ module.exports = {
     getFriendsAndRequestsByUserId,
     addWallPost,
     getWallPosts,
+    getLikesForWallPost,
+    likeWallPost,
+    unlikeWallPost,
     getLastTenChatMessages,
     addChatMessage,
 };

@@ -30,7 +30,18 @@ wallRouter.get("/api/wall/:id", (req, res) => {
 wallRouter
     .route("/api/wall/post/:id/like")
     .get((req, res) => {
-        console.log("user wants to get likes for post ", id);
+        db.getLikesForWallPost(req.params.id)
+            .then(({ rows }) => {
+                if (rows) {
+                    res.json({ likes: rows, success: true });
+                } else {
+                    res.json({ success: true });
+                }
+            })
+            .catch((err) => {
+                console.log("Err in getLikesForWallPost:", err);
+                res.json({ success: false });
+            });
     })
     .post((req, res) => {
         console.log("user wants to like post ", req.params.id);

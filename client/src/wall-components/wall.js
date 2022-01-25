@@ -74,6 +74,7 @@ export default function Wall(props) {
                         return (
                             <WallPost
                                 key={wallPost.post_id}
+                                postId={wallPost.post_id}
                                 post={wallPost.post}
                                 author={wallPost.id}
                                 first={wallPost.first}
