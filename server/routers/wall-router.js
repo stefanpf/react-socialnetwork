@@ -44,7 +44,6 @@ wallRouter
             });
     })
     .post((req, res) => {
-        console.log("user wants to like post ", req.params.id);
         db.likeWallPost(req.params.id, req.session.userId)
             .then(({ rows }) => {
                 res.json({ id: rows[0].id, success: true });

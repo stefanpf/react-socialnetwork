@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function WallPostLikes(props) {
     const { postId } = props;
@@ -74,19 +75,35 @@ export default function WallPostLikes(props) {
                         if (likes.length == 1) {
                             return (
                                 <div key={like.id}>
-                                    {like.first} {like.last}
+                                    {like.liked_by == userId ? (
+                                        "you"
+                                    ) : (
+                                        <Link to={`/user/${like.liked_by}`}>
+                                            {like.first} {like.last}
+                                        </Link>
+                                    )}
                                 </div>
                             );
                         } else if (index < likes.length - 1) {
                             return (
                                 <div key={like.id}>
-                                    {like.first} {like.last},&nbsp;
+                                    &nbsp;
+                                    {like.liked_by == userId ? (
+                                        "you,"
+                                    ) : (
+                                        <Link to={`/user/${like.liked_by}`}>
+                                            {like.first} {like.last},
+                                        </Link>
+                                    )}
                                 </div>
                             );
                         } else {
                             return (
                                 <div key={like.id}>
-                                    and {like.first} {like.last}
+                                    &nbsp;
+                                    {like.liked_by == userId
+                                        ? "and you"
+                                        : `and ${like.first} ${like.last}`}
                                 </div>
                             );
                         }

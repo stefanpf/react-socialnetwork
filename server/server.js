@@ -63,6 +63,13 @@ io.on("connection", (socket) => {
 
     db.getLastTenChatMessages()
         .then(({ rows }) => {
+            rows.map(
+                (row) =>
+                    (row.created_at = new Intl.DateTimeFormat("en-GB", {
+                        dateStyle: "long",
+                        timeStyle: "short",
+                    }).format(new Date(row.created_at)))
+            );
             socket.emit("chatMessages", rows);
         })
         .catch((err) => {
@@ -76,7 +83,11 @@ io.on("connection", (socket) => {
         };
         db.addChatMessage(newChatMessage.user_id, newChatMessage.message)
             .then(({ rows }) => {
-                const { id, created_at } = rows[0];
+                let { id, created_at } = rows[0];
+                created_at = new Intl.DateTimeFormat("en-GB", {
+                    dateStyle: "long",
+                    timeStyle: "short",
+                }).format(new Date(created_at));
                 newChatMessage = { ...newChatMessage, id, created_at };
                 return db.getUserById(newChatMessage.user_id);
             })

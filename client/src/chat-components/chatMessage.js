@@ -3,10 +3,6 @@ import ProfilePic from "../profile-components/profilePic";
 
 export default function chatMessage(props) {
     const { userId, message } = props;
-    message.created_at = new Intl.DateTimeFormat("en-GB", {
-        dateStyle: "long",
-        timeStyle: "short",
-    }).format(new Date(message.created_at));
     const ownChatMessage = userId === message.user_id;
     const profilePic = (
         <>
