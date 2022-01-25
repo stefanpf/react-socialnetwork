@@ -27,4 +27,16 @@ wallRouter.get("/api/wall/:id", (req, res) => {
         });
 });
 
+wallRouter
+    .route("/api/wall/post/:id/like")
+    .get((req, res) => {
+        console.log("user wants to get likes for post ", id);
+    })
+    .post((req, res) => {
+        console.log("user wants to like post ", req.params.id);
+    })
+    .delete((req, res) => {
+        console.log("user wants to unlike post ", req.params.id);
+    });
+
 module.exports = wallRouter;
