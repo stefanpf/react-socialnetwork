@@ -18,8 +18,17 @@ const db = require("./utils/db");
 const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
-    allowRequest: (req, callback) =>
-        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+    allowRequest: (req, callback) => {
+        console.log("req.headers.referer:", req.headers.referer);
+        callback(
+            null,
+            req.headers.referer.startsWith("https://sp-social.herokuapp.com") ||
+                req.headers.referer.startsWith(
+                    "http://sp-social.herokuapp.com"
+                ) ||
+                req.headers.referer.startsWith("http://localhost:3000")
+        );
+    },
 });
 const PORT = 3001;
 
