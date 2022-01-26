@@ -565,3 +565,7 @@ form input:focus {
 .delete-account-btn {
     background-color: rgb(223, 24, 24);
 }
+
+.own-profile-pic {
+    cursor: pointer;
+}

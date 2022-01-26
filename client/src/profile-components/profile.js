@@ -21,7 +21,7 @@ export default function Profile(props) {
                             first={userData.first}
                             last={userData.last}
                             toggleUploaderFunc={toggleUploaderFunc}
-                            className="profile-avatar"
+                            className="profile-avatar own-profile-pic"
                         />
                         <BioEditor />
                         <h2>My Friends:</h2>

@@ -16,7 +16,7 @@ export default function Header(props) {
                         last={userData.last}
                         imageUrl={userData.imageUrl}
                         toggleUploaderFunc={props.toggleUploader}
-                        className="navbar-avatar"
+                        className="navbar-avatar own-profile-pic"
                     />
                 )}
 
