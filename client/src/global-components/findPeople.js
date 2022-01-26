@@ -47,12 +47,14 @@ export default function FindPeople() {
 
     return (
         <>
-            <h2>Find your friends:</h2>
-            {error && <h2>Oops, something went wrong...</h2>}
-            <input
-                className="search-input"
-                onChange={(e) => setSearchTerm(e.target.value)}
-            />
+            <div className="wrapper">
+                <h2>Find your friends:</h2>
+                {error && <h2>Oops, something went wrong...</h2>}
+                <input
+                    className="search-input"
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
             <div className="search-results-wrapper">
                 {people &&
                     people.map((person) => (

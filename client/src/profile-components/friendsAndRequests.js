@@ -58,8 +58,10 @@ export default function FriendsAndRequests() {
 
     return (
         <>
-            {error && <h2>Oops, something went wrong...</h2>}
-            <h2>Pending Requests:</h2>
+            <div className="wrapper">
+                {error && <h2>Oops, something went wrong...</h2>}
+                <h2>Pending Requests:</h2>
+            </div>
             <div className="search-results-wrapper">
                 {friendRequests &&
                     friendRequests.map((friendRequest) => {
@@ -92,8 +94,9 @@ export default function FriendsAndRequests() {
                         );
                     })}
             </div>
-
-            <h2>My Friends:</h2>
+            <div className="wrapper">
+                <h1>My Friends:</h1>
+            </div>
             <div className="search-results-wrapper">
                 {friends &&
                     friends.map((friend) => {
