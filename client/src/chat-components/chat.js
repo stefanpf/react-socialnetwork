@@ -17,7 +17,7 @@ export default function Chat(props) {
     };
 
     return (
-        <div className="chat-wrapper">
+        <div className="wrapper">
             <div ref={chatContainerRef} className="chat-container">
                 {chatMessages &&
                     chatMessages.map((msg) => {
@@ -30,10 +30,12 @@ export default function Chat(props) {
                         );
                     })}
             </div>
-            <textarea
-                placeholder="Enter your chat message here"
-                onKeyDown={keyCheck}
-            />
+            <div className="chat-input">
+                <textarea
+                    placeholder="Enter your chat message here"
+                    onKeyDown={keyCheck}
+                />
+            </div>
         </div>
     );
 }

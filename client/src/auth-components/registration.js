@@ -47,9 +47,13 @@ export default function Registration() {
                     >
                         Register
                     </button>
-                    Already registered?
-                    <Link to="/login">Click here to log in!</Link>
                 </form>
+            </div>
+            <div className="auth-switch-text">
+                Already registered?{" "}
+                <Link to="/login">
+                    Click here to <strong>log in!</strong>
+                </Link>
             </div>
         </>
     );

@@ -59,7 +59,7 @@ export default function Wall(props) {
             <div className="wall-container">
                 <h2>The Wall</h2>
                 {(ownWall || loggedInUserAndOtherProfileAreFriends) && (
-                    <div className="form-container">
+                    <div className="wall-input-container">
                         <textarea
                             placeholder="Type something to post..."
                             onKeyDown={keyCheck}

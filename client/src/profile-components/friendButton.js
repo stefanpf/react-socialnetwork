@@ -76,7 +76,7 @@ export default function FriendButton(props) {
 
     return (
         <>
-            <button className="button-cta" onClick={changeFriendship}>
+            <button className="friend-button" onClick={changeFriendship}>
                 {friendButtonText[friendshipStatus]}
             </button>
             {error && <h2>Oops, something went wrong...</h2>}

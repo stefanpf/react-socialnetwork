@@ -48,7 +48,7 @@ export default function OtherProfile(props) {
                 )}
                 {error && <h2>Oops, something went wrong...</h2>}
                 {userData && (
-                    <div>
+                    <>
                         <ProfilePic
                             imageUrl={userData.imageUrl}
                             first={userData.first}
@@ -67,7 +67,7 @@ export default function OtherProfile(props) {
                                 <FriendList id={id} />
                             </>
                         )}
-                    </div>
+                    </>
                 )}
             </div>
             <div className="profile-col-right">

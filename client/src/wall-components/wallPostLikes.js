@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 export default function WallPostLikes(props) {
     const { postId } = props;
-    const { userId, first, last } = useSelector(
-        (state) => state.userData && state.userData
-    );
+    const { userId, first, last } = useSelector((state) => {
+        return state.userData || {};
+    });
     const [likes, setLikes] = useState([]);
     const [likedByLoggedInUser, setLikedByLoggedInUser] = useState(false);
     const [error, setError] = useState(false);
@@ -70,7 +70,7 @@ export default function WallPostLikes(props) {
             {error && <h3>Oops, something went wrong...</h3>}
             {likes && (
                 <div className="wall-posts-likes-liked-by">
-                    Liked by&nbsp;
+                    Liked by:&nbsp;
                     {likes.map((like, index) => {
                         if (likes.length == 0) {
                             return <div>nobody yet :/.</div>;
@@ -113,9 +113,17 @@ export default function WallPostLikes(props) {
                 </div>
             )}
             <div className="wall-post-like-button">
-                <button onClick={handleLike} key={postId}>
-                    {likedByLoggedInUser ? "Unlike" : "Like"}
-                </button>
+                <img
+                    src={
+                        likedByLoggedInUser
+                            ? "/img/heart-filled.png"
+                            : "/img/heart-empty.png"
+                    }
+                    onClick={handleLike}
+                    key={postId}
+                    alt={likedByLoggedInUser ? "Unlike" : "Like"}
+                    className="like-btn-heart"
+                />
             </div>
         </div>
     );

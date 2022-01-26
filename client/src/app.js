@@ -5,7 +5,7 @@ import Header from "./global-components/header";
 import Uploader from "./profile-components/profilePicUploader";
 import Profile from "./profile-components/profile";
 import OtherProfile from "./profile-components/otherProfile";
-import FindPeople from "./findPeople";
+import FindPeople from "./global-components/findPeople";
 import Chat from "./chat-components/chat";
 import FriendsAndRequests from "./profile-components/friendsAndRequests";
 import DeleteAccount from "./profile-components/deleteAccount";

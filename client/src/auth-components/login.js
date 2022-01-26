@@ -36,9 +36,16 @@ export default function Login() {
                         Login
                     </button>
                 </form>
-                Don&apos;t have an account yet?
-                <Link to="/">Click here to register!</Link>
-                <Link to="/password/reset">Forgot your password?</Link>
+            </div>
+            <div className="auth-switch-text">
+                Don&apos;t have an account yet?{" "}
+                <Link to="/">
+                    Click here to <strong>register!</strong>
+                </Link>{" "}
+                <br />
+                <Link to="/password/reset">
+                    <strong>Forgot</strong> your password?
+                </Link>
             </div>
         </>
     );

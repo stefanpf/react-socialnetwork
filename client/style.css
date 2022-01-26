@@ -154,13 +154,15 @@ body {
 }
 
 body {
-    background-color: rgb(70, 68, 68);
+    background-color: #cdd0f4;
     font-family: "Avenir", Arial, sans-serif;
-    color: white;
+    color: #000807;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 header {
+    background-color: #a2a3bb;
+    border-bottom: 2px solid white;
     height: 100px;
     padding: 2px 46px 0px 46px;
     font-size: 24px;
@@ -177,8 +179,23 @@ a {
     color: inherit;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 strong {
-    color: #f2da03;
+    color: white;
+}
+
+textarea {
+    all: unset;
+    border-radius: 8px;
+    padding: 4px 5px 4px 5px;
+    background-color: #fff;
+}
+
+textarea:focus {
+    outline: 1px solid #241293;
 }
 
 input {
@@ -220,7 +237,7 @@ button:hover {
 .navbar-avatar {
     width: 70px;
     height: 70px;
-    border: 3px solid red;
+    border: 3px solid white;
     border-radius: 50%;
 }
 
@@ -281,14 +298,8 @@ form input:focus {
     align-items: center;
 }
 
-.profile-avatar {
-    width: 200px;
-    height: 200px;
-    border: 3px solid orange;
-    border-radius: 50%;
-}
-
 .image-modal {
+    z-index: 10;
     padding: 24px 0px;
     width: 60%;
     background-color: #fff;
@@ -322,6 +333,7 @@ form input:focus {
 }
 
 .overlay {
+    z-index: 5;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -353,19 +365,30 @@ form input:focus {
 }
 
 .profile-col-left {
-    border: 2px solid yellow;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 24px 12px 24px 12px;
 }
 
+.profile-col-left h1 {
+    font-size: 36px;
+}
 .profile-col-right {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 60px 0px 0px 24px;
 }
+
+.profile-avatar {
+    margin: 12px 0px 12px 0px;
+    width: 200px;
+    height: 200px;
+    border: 3px solid white;
+    border-radius: 50%;
+}
+
 /* SEARCH RESULT STYLES */
 /* -------------------- */
 
@@ -389,6 +412,7 @@ form input:focus {
 .search-result:hover {
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
 }
+
 .search-result-image img {
     height: 200px;
     width: 200px;
@@ -454,8 +478,8 @@ form input:focus {
 /* ------------*/
 .wall-container {
     width: 900px;
-    border: 2px solid black;
-    background-color: grey;
+    border: 1px solid white;
+    background-color: #9395d3;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -464,6 +488,20 @@ form input:focus {
     padding: 12px 0px;
 }
 
+.wall-input-container {
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0px 10px 0px;
+}
+
+.wall-input-container textarea {
+    width: 70%;
+}
+
+.wall-input-container button {
+    width: 20%;
+}
 .wall-post {
     width: 95%;
     border: 1px solid white;
@@ -479,6 +517,10 @@ form input:focus {
     padding: 0px 0px 0px 12px;
 }
 
+.wall-posts-likes-container {
+    padding: 6px 15px 0px 15px;
+}
+
 .wall-posts-likes-liked-by {
     display: flex;
     flex-wrap: wrap;
@@ -486,16 +528,32 @@ form input:focus {
 /* USER BIO STYLES*/
 /* ---------------*/
 .bio-editor {
+    width: 100%;
     padding: 8px 10px 8px 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .bio-text {
     font-size: 32px;
 }
 
+.bio-editor textarea {
+    width: 100%;
+    font-size: 26px;
+}
+
+.bio-editor button {
+    margin: 6px 0px 0px 0px;
+    width: 25%;
+    height: 25%;
+    font-size: 16px;
+    align-self: flex-end;
+}
+
 /* CHAT STYLES */
 /* ----------- */
-.chat-wrapper {
+.wrapper {
     margin-top: 24px;
     display: flex;
     flex-direction: column;
@@ -504,13 +562,23 @@ form input:focus {
 }
 
 .chat-container {
-    border: 2px solid red;
+    border: 2px solid white;
     border-radius: 8px;
     height: 50vh;
     width: 50vw;
     overflow-y: scroll;
     display: flex;
     flex-direction: column-reverse;
+}
+
+.chat-input {
+    width: 45vw;
+    margin: 12px 0px 12px 0px;
+    text-align: right;
+}
+
+.chat-input textarea {
+    width: 70%;
 }
 
 .chat-message {
@@ -559,13 +627,40 @@ form input:focus {
     align-self: flex-end;
 }
 
-.delete-account-btn-container {
+.delete-account-page {
+    font-size: 24px;
+}
+
+.delete-account-page h1 {
+    font-size: 48px;
+    margin-bottom: 24px;
+}
+
+.cancel-delete-btn {
+    margin: 24px;
+    width: 400px;
 }
 
 .delete-account-btn {
     background-color: rgb(223, 24, 24);
+    width: 240px;
+    font-size: 18px;
+    margin-top: 40px;
 }
 
 .own-profile-pic {
     cursor: pointer;
+}
+
+.like-btn-heart {
+    cursor: pointer;
+}
+
+.auth-switch-text {
+    margin: 15px 0px 0px 0px;
+    font-size: 24px;
+}
+
+.friend-button {
+    margin: 18px 0px 18px 0px;
 }

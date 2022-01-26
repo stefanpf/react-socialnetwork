@@ -15,36 +15,55 @@ export default function DeleteAccount(props) {
             });
     };
     return (
-        <>
+        <div className="wrapper delete-account-page">
             <h1>Are you sure?</h1>
             <div>
-                <p>Deleting your account is permanent and cannot be undone!</p>
+                <p>
+                    Deleting your account is <strong>permanent</strong> and{" "}
+                    <strong>cannot be undone!</strong>
+                </p>
                 <p>Deleting your account will delete all of the following:</p>
                 <ul>
-                    <li>every Like you have ever left on a wall post,</li>
-                    <li>every post you have ever made on a wall,</li>
-                    <li>every message you have ever posted in the chat,</li>
                     <li>
-                        any old password recovery codes that might still be left
-                        as residuals in our database,
-                    </li>
-                    <li>every picture you have ever uploaded,</li>
-                    <li>
-                        every link we have stored between you and other users
-                        (i.e. friends), and
+                        every <strong>Like</strong> you have ever left on a wall
+                        post,
                     </li>
                     <li>
-                        every piece of information we have stored about you
-                        (name, email address, and hashed password.)
+                        every <strong>Post</strong> you have ever made on a
+                        wall,
+                    </li>
+                    <li>
+                        every <strong>Message</strong> you have ever posted in
+                        the chat,
+                    </li>
+                    <li>
+                        any old <strong>Password Recovery Codes</strong> that
+                        might still be left as residuals in our database,
+                    </li>
+                    <li>
+                        every <strong>Picture</strong> you have ever uploaded,
+                    </li>
+                    <li>
+                        every <strong>Link</strong> we have stored between you
+                        and other users (i.e. friends), and
+                    </li>
+                    <li>
+                        every piece of information we have stored about you (
+                        <strong>
+                            Name, Email Address, and Hashed Password
+                        </strong>
+                        .)
                     </li>
                 </ul>
             </div>
             <Link to="/">
-                <button>Cancel and Back To Profile</button>
+                <button className="cancel-delete-btn">
+                    Cancel and Back To Profile
+                </button>
             </Link>
             <button className="delete-account-btn" onClick={handleDelete}>
                 Delete Account
             </button>
-        </>
+        </div>
     );
 }
