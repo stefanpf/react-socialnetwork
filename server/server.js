@@ -19,7 +19,6 @@ const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
     allowRequest: (req, callback) => {
-        console.log("req.headers.referer:", req.headers.referer);
         callback(
             null,
             req.headers.referer.startsWith("https://sp-social.herokuapp.com") ||
