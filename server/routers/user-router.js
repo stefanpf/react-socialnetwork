@@ -35,11 +35,11 @@ userRouter
             // .then(() => {
             //     return db.getWallPostLikesMadeByOtherUsers(userId);
             // })
-            .then(() => {
-                // let postIds = [];
-                // rows.forEach((row) => postIds.push(row.id));
-                return db.deleteWallPostLikesOnUsersPosts(userId);
-            })
+            // .then(() => {
+            //     // let postIds = [];
+            //     // rows.forEach((row) => postIds.push(row.id));
+            //     return db.deleteWallPostLikesOnUsersPosts(userId);
+            // })
             .then(() => {
                 return db.deleteChatMessagesByUserId(userId);
             })

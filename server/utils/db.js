@@ -207,25 +207,8 @@ function addChatMessage(userId, message) {
 
 function deleteWallPostLikesByUserId(userId) {
     const q = `DELETE FROM wallposts_likes
-            WHERE liked_by = $1;`;
-    const params = [userId];
-    return db.query(q, params);
-}
-
-function getWallPostLikesMadeByOtherUsers(userId) {
-    const q = `SELECT l.id 
-            FROM wallposts_likes AS l
-            JOIN wallposts AS w 
-            ON l.post_id = w.id
-            WHERE w.owner_id = $1 
-            AND l.liked_by != $1;`;
-    const params = [userId];
-    return db.query(q, params);
-}
-
-function deleteWallPostLikesOnUsersPosts(userId) {
-    const q = `DELETE FROM wallposts_likes
-            WHERE id = ANY(SELECT l.id 
+            WHERE liked_by = $1
+            OR id = ANY(SELECT l.id 
                                 FROM wallposts_likes AS l
                                 JOIN wallposts AS w 
                                 ON l.post_id = w.id
@@ -234,6 +217,29 @@ function deleteWallPostLikesOnUsersPosts(userId) {
     const params = [userId];
     return db.query(q, params);
 }
+
+// function getWallPostLikesMadeByOtherUsers(userId) {
+//     const q = `SELECT l.id
+//             FROM wallposts_likes AS l
+//             JOIN wallposts AS w
+//             ON l.post_id = w.id
+//             WHERE w.owner_id = $1
+//             AND l.liked_by != $1;`;
+//     const params = [userId];
+//     return db.query(q, params);
+// }
+
+// function deleteWallPostLikesOnUsersPosts(userId) {
+//     const q = `DELETE FROM wallposts_likes
+//             WHERE id = ANY(SELECT l.id
+//                                 FROM wallposts_likes AS l
+//                                 JOIN wallposts AS w
+//                                 ON l.post_id = w.id
+//                                 WHERE w.owner_id = $1
+//                                 AND l.liked_by != $1);`;
+//     const params = [userId];
+//     return db.query(q, params);
+// }
 
 function deleteChatMessagesByUserId(userId) {
     const q = `DELETE FROM chat_messages
