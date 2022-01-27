@@ -7,7 +7,7 @@ export default function Welcome() {
     return (
         <>
             <div className="wrapper">
-                <h1>Welcome To The Matrix</h1>
+                <h1>Welcome To The Social Network</h1>
                 <BrowserRouter>
                     <div>
                         <Route exact path="/">
