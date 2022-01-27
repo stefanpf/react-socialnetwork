@@ -225,7 +225,7 @@ function getWallPostLikesMadeByOtherUsers(userId) {
 
 function deleteWallPostLikesOnUsersPosts(userId) {
     const q = `DELETE FROM wallposts_likes
-            WHERE post_id = ANY(SELECT l.id 
+            WHERE id = ANY(SELECT l.id 
                                 FROM wallposts_likes AS l
                                 JOIN wallposts AS w 
                                 ON l.post_id = w.id
