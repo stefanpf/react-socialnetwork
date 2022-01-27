@@ -31,7 +31,6 @@ userRouter
     })
     .delete(s3.remove, (req, res) => {
         const userId = req.params.id;
-        console.log(`user ${userId} wants to delete their account`);
         db.deleteWallPostLikesByUserId(userId)
             .then(() => {
                 return db.deleteChatMessagesByUserId(userId);

@@ -53,6 +53,7 @@ module.exports.remove = (req, res, next) => {
 
     listPromise
         .then(({ Contents }) => {
+            if (Contents.length === 0) return;
             const newContents = [];
             Contents.forEach((element) => {
                 newContents.push({ Key: element.Key });

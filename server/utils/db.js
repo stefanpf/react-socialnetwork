@@ -212,6 +212,11 @@ function deleteWallPostLikesByUserId(userId) {
     return db.query(q, params);
 }
 
+// function deleteWallPostLikesReferencingWallPostsForUserId(userId) {
+//     const q = `DELETE FROM wallposts_likes
+//             WHERE post_id = `;
+// }
+
 function deleteChatMessagesByUserId(userId) {
     const q = `DELETE FROM chat_messages
             WHERE user_id = $1;`;
