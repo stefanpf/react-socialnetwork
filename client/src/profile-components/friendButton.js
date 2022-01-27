@@ -29,7 +29,7 @@ export default function FriendButton(props) {
                     setFriendshipStatus("someoneWantsToBeMyFriend");
                 }
             });
-    }, []);
+    }, [viewedProfile]);
 
     function changeFriendship() {
         if (friendshipStatus == "noFriends") {

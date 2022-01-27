@@ -12,11 +12,12 @@ export default function OtherProfile(props) {
     const history = useHistory();
     const [userData, setUserData] = useState();
     const [error, setError] = useState(false);
-    const loggedInUsersFriends = useSelector(
-        (state) =>
+    const loggedInUsersFriends = useSelector((state) => {
+        return (
             state.friendsAndRequests &&
             state.friendsAndRequests.filter((friendship) => friendship.accepted)
-    );
+        );
+    });
     const loggedInUserAndOtherProfileAreFriends =
         loggedInUsersFriends &&
         loggedInUsersFriends.some((friend) => friend.id == id);
