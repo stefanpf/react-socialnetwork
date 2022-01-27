@@ -230,7 +230,7 @@ function deleteWallPostLikesOnUsersPosts(userId) {
                                 JOIN wallposts AS w 
                                 ON l.post_id = w.id
                                 WHERE w.owner_id = $1 
-                                AND l.liked_by != $1;);`;
+                                AND l.liked_by != $1);`;
     const params = [userId];
     return db.query(q, params);
 }
