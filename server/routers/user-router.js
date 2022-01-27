@@ -32,6 +32,14 @@ userRouter
     .delete(s3.remove, (req, res) => {
         const userId = req.params.id;
         db.deleteWallPostLikesByUserId(userId)
+            // .then(() => {
+            //     return db.getWallPostLikesMadeByOtherUsers(userId);
+            // })
+            .then(() => {
+                // let postIds = [];
+                // rows.forEach((row) => postIds.push(row.id));
+                return db.deleteWallPostLikesOnUsersPosts(userId);
+            })
             .then(() => {
                 return db.deleteChatMessagesByUserId(userId);
             })

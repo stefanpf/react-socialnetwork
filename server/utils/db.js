@@ -212,10 +212,28 @@ function deleteWallPostLikesByUserId(userId) {
     return db.query(q, params);
 }
 
-// function deleteWallPostLikesReferencingWallPostsForUserId(userId) {
-//     const q = `DELETE FROM wallposts_likes
-//             WHERE post_id = `;
-// }
+function getWallPostLikesMadeByOtherUsers(userId) {
+    const q = `SELECT l.id 
+            FROM wallposts_likes AS l
+            JOIN wallposts AS w 
+            ON l.post_id = w.id
+            WHERE w.owner_id = $1 
+            AND l.liked_by != $1;`;
+    const params = [userId];
+    return db.query(q, params);
+}
+
+function deleteWallPostLikesOnUsersPosts(userId) {
+    const q = `DELETE FROM wallposts_likes
+            WHERE post_id = ANY(SELECT l.id 
+                                FROM wallposts_likes AS l
+                                JOIN wallposts AS w 
+                                ON l.post_id = w.id
+                                WHERE w.owner_id = $1 
+                                AND l.liked_by != $1;);`;
+    const params = [userId];
+    return db.query(q, params);
+}
 
 function deleteChatMessagesByUserId(userId) {
     const q = `DELETE FROM chat_messages
@@ -277,6 +295,8 @@ module.exports = {
     getLastTenChatMessages,
     addChatMessage,
     deleteWallPostLikesByUserId,
+    getWallPostLikesMadeByOtherUsers,
+    deleteWallPostLikesOnUsersPosts,
     deleteChatMessagesByUserId,
     deleteWallPostsByUserId,
     deleteFriendshipsByUserId,
