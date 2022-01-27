@@ -208,7 +208,7 @@ function addChatMessage(userId, message) {
 function deleteWallPostLikesByUserId(userId) {
     const q = `DELETE FROM wallposts_likes
             WHERE liked_by = $1
-            OR id = ANY(SELECT l.id 
+            OR id IN (SELECT l.id 
                                 FROM wallposts_likes AS l
                                 JOIN wallposts AS w 
                                 ON l.post_id = w.id
@@ -301,8 +301,8 @@ module.exports = {
     getLastTenChatMessages,
     addChatMessage,
     deleteWallPostLikesByUserId,
-    getWallPostLikesMadeByOtherUsers,
-    deleteWallPostLikesOnUsersPosts,
+    // getWallPostLikesMadeByOtherUsers,
+    // deleteWallPostLikesOnUsersPosts,
     deleteChatMessagesByUserId,
     deleteWallPostsByUserId,
     deleteFriendshipsByUserId,
