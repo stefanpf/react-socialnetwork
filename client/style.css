@@ -574,11 +574,19 @@ form input:focus {
 .chat-input {
     width: 45vw;
     margin: 12px 0px 12px 0px;
-    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .chat-input textarea {
     width: 70%;
+}
+
+.chat-input button {
+    margin: 12px 0px 0px 0px;
+    width: 50%;
 }
 
 .chat-message {

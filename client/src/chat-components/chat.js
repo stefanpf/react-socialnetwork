@@ -7,12 +7,20 @@ export default function Chat(props) {
     const { userId } = props;
     const chatMessages = useSelector((state) => state && state.chatMessages);
     const chatContainerRef = useRef();
+    const textareaRef = useRef();
 
     const keyCheck = (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
             socket.emit("newChatMessage", e.target.value);
             e.target.value = "";
+        }
+    };
+
+    const emitMessage = () => {
+        if (textareaRef.current.value) {
+            socket.emit("newChatMessage", textareaRef.current.value);
+            textareaRef.current.value = "";
         }
     };
 
@@ -34,7 +42,9 @@ export default function Chat(props) {
                 <textarea
                     placeholder="Enter your chat message here"
                     onKeyDown={keyCheck}
+                    ref={textareaRef}
                 />
+                <button onClick={emitMessage}>Send Message</button>
             </div>
         </div>
     );
